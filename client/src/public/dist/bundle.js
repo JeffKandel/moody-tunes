@@ -24304,7 +24304,7 @@ var _App2 = _interopRequireDefault(_App);
 
 __webpack_require__(371);
 
-var _fakeData = __webpack_require__(860);
+var _fakeDataState = __webpack_require__(861);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24312,7 +24312,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 //load main css
-_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: _fakeData.dataObj }), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: _fakeDataState.dataObj }), document.getElementById('root'));
 
 /* ----- DUMMY DATA ----- */
 
@@ -58369,7 +58369,8 @@ addEvents=_victoryCore.addEvents;exports.Collection=_victoryCore.Collection;expo
 PropTypes=_victoryCore.PropTypes;exports.Scale=_victoryCore.Scale;exports.Style=_victoryCore.Style;exports.TextSize=_victoryCore.TextSize;exports.Transitions=_victoryCore.Transitions;exports.Selection=_victoryCore.Selection;
 
 /***/ }),
-/* 860 */
+/* 860 */,
+/* 861 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58378,7 +58379,141 @@ PropTypes=_victoryCore.PropTypes;exports.Scale=_victoryCore.Scale;exports.Style=
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var kendrickPoetic = {
+exports.dataObj = undefined;
+
+var _barackSpeech = __webpack_require__(862);
+
+var _barackSpeech2 = _interopRequireDefault(_barackSpeech);
+
+var _kendrickPoeticJustice = __webpack_require__(864);
+
+var _kendrickPoeticJustice2 = _interopRequireDefault(_kendrickPoeticJustice);
+
+var _kendrickSwimmingPools = __webpack_require__(863);
+
+var _kendrickSwimmingPools2 = _interopRequireDefault(_kendrickSwimmingPools);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var genData = function genData(arr) {
+  return arr.map(function (obj) {
+    return {
+      sentenceOffset: obj.text.beginOffset,
+      sentiment: obj.sentiment.score
+    };
+  });
+};
+
+var dataObj = exports.dataObj = function (obj) {
+  return {
+    documentSentiment: obj.documentSentiment,
+    sentences: genData(obj.sentences)
+  };
+}(_barackSpeech2.default);
+
+/***/ }),
+/* 862 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  "documentSentiment": {
+    "magnitude": 3.4,
+    "score": 0.4
+  },
+  "language": "en",
+  "sentences": [{
+    "text": {
+      "content": "But my grandfather had larger dreams for his son.",
+      "beginOffset": 0
+    },
+    "sentiment": {
+      "magnitude": 0.5,
+      "score": 0.5
+    }
+  }, {
+    "text": {
+      "content": "Through hard work and perseverance my father got a scholarship to study in a magical place: America, which stood as a beacon of freedom and opportunity to so many who had come before.",
+      "beginOffset": 50
+    },
+    "sentiment": {
+      "magnitude": 0.8,
+      "score": 0.8
+    }
+  }, {
+    "text": {
+      "content": "While studying here, my father met my mother.",
+      "beginOffset": 234
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "She was born in a town on the other side of the world, in Kansas.",
+      "beginOffset": 280
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "Her father worked on oil rigs and farms through most of the Depression.",
+      "beginOffset": 346
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "The day after Pearl Harbor he signed up for duty, joined Patton's army and marched across Europe.",
+      "beginOffset": 418
+    },
+    "sentiment": {
+      "magnitude": 0.5,
+      "score": 0.5
+    }
+  }, {
+    "text": {
+      "content": "Back home, my grandmother raised their baby and went to work on a bomber assembly line.",
+      "beginOffset": 516
+    },
+    "sentiment": {
+      "magnitude": 0.1,
+      "score": 0.1
+    }
+  }, {
+    "text": {
+      "content": "After the war, they studied on the GI Bill, bought a house through FHA, and moved west in search of opportunity.",
+      "beginOffset": 604
+    },
+    "sentiment": {
+      "magnitude": 0.2,
+      "score": 0.2
+    }
+  }]
+};
+
+/***/ }),
+/* 863 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 864 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
   "documentSentiment": {
     "magnitude": 4.3,
     "score": 0.2
@@ -58485,103 +58620,6 @@ var kendrickPoetic = {
     }
   }]
 };
-
-var barackSpeech = {
-  "documentSentiment": {
-    "magnitude": 3.4,
-    "score": 0.4
-  },
-  "language": "en",
-  "sentences": [{
-    "text": {
-      "content": "But my grandfather had larger dreams for his son.",
-      "beginOffset": 0
-    },
-    "sentiment": {
-      "magnitude": 0.5,
-      "score": 0.5
-    }
-  }, {
-    "text": {
-      "content": "Through hard work and perseverance my father got a scholarship to study in a magical place: America, which stood as a beacon of freedom and opportunity to so many who had come before.",
-      "beginOffset": 50
-    },
-    "sentiment": {
-      "magnitude": 0.8,
-      "score": 0.8
-    }
-  }, {
-    "text": {
-      "content": "While studying here, my father met my mother.",
-      "beginOffset": 234
-    },
-    "sentiment": {
-      "magnitude": 0.3,
-      "score": 0.3
-    }
-  }, {
-    "text": {
-      "content": "She was born in a town on the other side of the world, in Kansas.",
-      "beginOffset": 280
-    },
-    "sentiment": {
-      "magnitude": 0.3,
-      "score": 0.3
-    }
-  }, {
-    "text": {
-      "content": "Her father worked on oil rigs and farms through most of the Depression.",
-      "beginOffset": 346
-    },
-    "sentiment": {
-      "magnitude": 0.3,
-      "score": 0.3
-    }
-  }, {
-    "text": {
-      "content": "The day after Pearl Harbor he signed up for duty, joined Patton's army and marched across Europe.",
-      "beginOffset": 418
-    },
-    "sentiment": {
-      "magnitude": 0.5,
-      "score": 0.5
-    }
-  }, {
-    "text": {
-      "content": "Back home, my grandmother raised their baby and went to work on a bomber assembly line.",
-      "beginOffset": 516
-    },
-    "sentiment": {
-      "magnitude": 0.1,
-      "score": 0.1
-    }
-  }, {
-    "text": {
-      "content": "After the war, they studied on the GI Bill, bought a house through FHA, and moved west in search of opportunity.",
-      "beginOffset": 604
-    },
-    "sentiment": {
-      "magnitude": 0.2,
-      "score": 0.2
-    }
-  }]
-};
-
-var genData = function genData(arr) {
-  return arr.map(function (obj) {
-    return {
-      sentenceOffset: obj.text.beginOffset,
-      sentiment: obj.sentiment.score
-    };
-  });
-};
-
-var dataObj = exports.dataObj = function (obj) {
-  return {
-    documentSentiment: obj.documentSentiment,
-    sentences: genData(obj.sentences)
-  };
-}(kendrickPoetic);
 
 /***/ })
 /******/ ]);

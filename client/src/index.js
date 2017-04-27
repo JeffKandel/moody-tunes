@@ -8,7 +8,7 @@ import App from './components/App.js'
 import './public/stylesheets/index.scss'
 
 /* ----- DUMMY DATA ----- */
-import {dataObj} from './fakeData.js'
+import {dataObj} from './fakeDataState.js'
 
 /* ----- RENDER TO DOM ----- */
 ReactDOM.render(
