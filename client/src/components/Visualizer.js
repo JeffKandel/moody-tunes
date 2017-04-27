@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import * as V from 'victory'
 
 const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 }
+  { stanza: 1, sentiment: -0.5 },
+  { stanza: 2, sentiment: 0.3 },
+  { stanza: 3, sentiment: 0.8 },
+  { stanza: 4, sentiment: 0.9 }
 ]
 
-const tickValues = [1, 2, 3, 4]
-const tickFormat = ["Stanza 1", "Stanza 2", "Stanza 3", "Stanza 4"]
+const domain = { x: [0, 10], y: [-1, 1] }
 
 export default class Visualizer extends Component {
   render() {
@@ -19,20 +18,19 @@ export default class Visualizer extends Component {
         <V.VictoryChart
           domainPadding={20}
           theme={V.VictoryTheme.material}
+          containerComponent={<V.VictoryVoronoiContainer />}
         >
           <V.VictoryAxis
-            tickValues={tickValues}
-            tickFormat={tickFormat}
           />
           <V.VictoryAxis
             dependentAxis
-            tickFormat={x => (`$${x / 1000}k`)}
           />
           <V.VictoryLine
-            data={this.props.data}
-            x="quarter"
-            y="earnings"
+            data={data}
+            x="stanza"
+            y="sentiment"
             interpolation="basis"
+            domain={domain}
           />
         </V.VictoryChart>
       </div>

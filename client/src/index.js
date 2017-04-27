@@ -17,6 +17,6 @@ const data = [
 
 /* ----- RENDER TO DOM ----- */
 ReactDOM.render(
-  (<App data={data} />),
+  <App data={data} />,
   document.getElementById('root')
 )

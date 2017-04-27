@@ -23909,6 +23909,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _NavBar = __webpack_require__(366);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
 var _Corpus = __webpack_require__(372);
 
 var _Corpus2 = _interopRequireDefault(_Corpus);
@@ -23944,16 +23948,21 @@ var App = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { id: 'body', className: 'row' },
+        null,
+        _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
           'div',
-          { className: 'col-md-6' },
-          'Corpus will eventually go here'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-md-6' },
-          _react2.default.createElement(_Visualizer2.default, { data: this.props.data })
+          { id: 'body', className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-6' },
+            'Corpus will eventually go here'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-6' },
+            _react2.default.createElement(_Visualizer2.default, { data: this.props.data })
+          )
         )
       );
     }
@@ -23966,7 +23975,67 @@ exports.default = App;
 
 /***/ }),
 /* 365 */,
-/* 366 */,
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/* ----- COMPONENT ----- */
+
+var NavBar = function (_Component) {
+  _inherits(NavBar, _Component);
+
+  function NavBar() {
+    _classCallCheck(this, NavBar);
+
+    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+  }
+
+  _createClass(NavBar, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "nav",
+        { className: "flexcontainer" },
+        _react2.default.createElement(
+          "h2",
+          { className: "left" },
+          "Tune / Mood"
+        ),
+        _react2.default.createElement(
+          "h4",
+          { className: "right text-align-middle" },
+          "Visualizing the emotional arc of your favorite tunes"
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react.Component);
+
+exports.default = NavBar;
+
+/***/ }),
 /* 367 */,
 /* 368 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -24043,10 +24112,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var data = [{ quarter: 1, earnings: 13000 }, { quarter: 2, earnings: 16500 }, { quarter: 3, earnings: 14250 }, { quarter: 4, earnings: 19000 }];
+var data = [{ stanza: 1, sentiment: -0.5 }, { stanza: 2, sentiment: 0.3 }, { stanza: 3, sentiment: 0.8 }, { stanza: 4, sentiment: 0.9 }];
 
-var tickValues = [1, 2, 3, 4];
-var tickFormat = ["Stanza 1", "Stanza 2", "Stanza 3", "Stanza 4"];
+var domain = { x: [0, 10], y: [-1, 1] };
 
 var Visualizer = function (_Component) {
   _inherits(Visualizer, _Component);
@@ -24072,23 +24140,19 @@ var Visualizer = function (_Component) {
           V.VictoryChart,
           {
             domainPadding: 20,
-            theme: V.VictoryTheme.material
+            theme: V.VictoryTheme.material,
+            containerComponent: _react2.default.createElement(V.VictoryVoronoiContainer, null)
           },
+          _react2.default.createElement(V.VictoryAxis, null),
           _react2.default.createElement(V.VictoryAxis, {
-            tickValues: tickValues,
-            tickFormat: tickFormat
-          }),
-          _react2.default.createElement(V.VictoryAxis, {
-            dependentAxis: true,
-            tickFormat: function tickFormat(x) {
-              return '$' + x / 1000 + 'k';
-            }
+            dependentAxis: true
           }),
           _react2.default.createElement(V.VictoryLine, {
-            data: this.props.data,
-            x: 'quarter',
-            y: 'earnings',
-            interpolation: 'basis'
+            data: data,
+            x: 'stanza',
+            y: 'sentiment',
+            interpolation: 'basis',
+            domain: domain
           })
         )
       );
@@ -26064,7 +26128,7 @@ exports = module.exports = __webpack_require__(380)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\nnav {\n  padding: 10px;\n  margin-bottom: 20px;\n  display: block;\n  background-color: #e0385c;\n  color: white; }\n\n.flexcontainer {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n", ""]);
 
 // exports
 
