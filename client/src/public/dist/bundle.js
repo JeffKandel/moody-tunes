@@ -23952,19 +23952,19 @@ var App = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'flexcontainer-vertical', id: 'appBlock' },
         _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
           'div',
-          { id: 'body', className: 'row' },
+          { id: 'bodyBlock', className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col-md-6' },
+            { id: 'corpusBlock', className: 'col-md-4' },
             'Corpus will eventually go here'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-md-6' },
+            { id: 'visualizerBlock', className: 'col-md-8' },
             _react2.default.createElement(_Visualizer2.default, { data: this.props.data })
           )
         ),
@@ -24019,10 +24019,10 @@ var Footer = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "flexcontainer footer" },
+        { className: "footer" },
         _react2.default.createElement(
           "h5",
-          null,
+          { className: "text-center subnav" },
           "a hackathon's work by ",
           _react2.default.createElement(
             "a",
@@ -24086,7 +24086,7 @@ var NavBar = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         "nav",
-        { className: "flexcontainer" },
+        { className: "flexcontainer-horizontal" },
         _react2.default.createElement(
           "h2",
           { className: "left" },
@@ -24094,7 +24094,7 @@ var NavBar = function (_Component) {
         ),
         _react2.default.createElement(
           "h4",
-          { className: "right text-align-middle" },
+          { className: "center text-align-middle subnav" },
           "Visualizing the emotional arc of your favorite tunes"
         )
       );
@@ -24183,72 +24183,96 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var data = [{ stanza: 1, sentiment: -0.5 }, { stanza: 2, sentiment: 0.3 }, { stanza: 3, sentiment: 0.8 }, { stanza: 4, sentiment: 0.9 }, { stanza: 5, sentiment: -0.2 }];
-
-var maxStanza = function maxStanza(arr) {
-  var max = 0;
-  arr.forEach(function (obj) {
-    if (obj.stanza > max) max = obj.stanza;
-  });
-  return max;
-};
-var domainX = [-1, maxStanza(data)];
-var domain = { x: domainX, y: [-1, 1] };
-
 var Visualizer = function (_Component) {
   _inherits(Visualizer, _Component);
 
   function Visualizer() {
     _classCallCheck(this, Visualizer);
 
-    return _possibleConstructorReturn(this, (Visualizer.__proto__ || Object.getPrototypeOf(Visualizer)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Visualizer.__proto__ || Object.getPrototypeOf(Visualizer)).call(this));
+
+    _this.docLength = _this.docLength.bind(_this);
+    _this.domainX = _this.domainX.bind(_this);
+    _this.domain = _this.domain.bind(_this);
+    return _this;
   }
 
   _createClass(Visualizer, [{
+    key: 'docLength',
+    value: function docLength(arr) {
+      var max = 0;
+      arr.forEach(function (obj) {
+        if (obj.sentenceOffset > max) max = obj.sentenceOffset;
+      });
+      return max;
+    }
+  }, {
+    key: 'domainX',
+    value: function domainX() {
+      return [-1, this.docLength(this.props.data.sentences)];
+    }
+  }, {
+    key: 'domain',
+    value: function domain() {
+      return {
+        x: this.domainX(),
+        y: [-1, 1]
+      };
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'flexcontainer-vertical' },
         _react2.default.createElement(
-          'h2',
+          'div',
           null,
-          'sentimentagram'
+          _react2.default.createElement(
+            'h2',
+            { className: 'center text-center text-bottom' },
+            'sentimentagram'
+          )
         ),
         _react2.default.createElement(
-          V.VictoryChart,
-          {
-            domainPadding: 20,
-            theme: V.VictoryTheme.material,
-            containerComponent: _react2.default.createElement(V.VictoryVoronoiContainer, null)
-          },
-          _react2.default.createElement(V.VictoryAxis, null),
-          _react2.default.createElement(V.VictoryAxis, {
-            dependentAxis: true
-          }),
-          _react2.default.createElement(V.VictoryScatter, {
-            data: data,
-            x: 'stanza',
-            y: 'sentiment',
-            size: function size(datum, active) {
-              return active ? 5 : 3;
+          'div',
+          null,
+          _react2.default.createElement(
+            V.VictoryChart,
+            {
+              domainPadding: 5,
+              theme: V.VictoryTheme.material,
+              width: 500,
+              height: 300,
+              padding: 50,
+              containerComponent: _react2.default.createElement(V.VictoryVoronoiContainer, null),
+              domain: this.domain()
             },
-            domain: domain
-          }),
-          _react2.default.createElement(V.VictoryLine, {
-            data: data,
-            x: 'stanza',
-            y: 'sentiment',
-            labels: function labels(datum) {
-              return datum.y;
-            },
-            labelComponent: _react2.default.createElement(V.VictoryTooltip, null),
-            size: function size(datum, active) {
-              return active ? 5 : 3;
-            },
-            interpolation: 'basis',
-            domain: domain
-          })
+            _react2.default.createElement(V.VictoryAxis, null),
+            _react2.default.createElement(V.VictoryAxis, { dependentAxis: true }),
+            _react2.default.createElement(V.VictoryScatter, {
+              data: this.props.data.sentences,
+              x: 'sentenceOffset',
+              y: 'sentiment',
+              size: function size(datum, active) {
+                return active ? 5 : 3;
+              }
+
+            }),
+            _react2.default.createElement(V.VictoryLine, {
+              data: this.props.data.sentences,
+              x: 'sentenceOffset',
+              y: 'sentiment',
+              labels: function labels(datum) {
+                return datum.y;
+              },
+              labelComponent: _react2.default.createElement(V.VictoryTooltip, null),
+              size: function size(datum, active) {
+                return active ? 5 : 3;
+              },
+              interpolation: 'basis'
+            })
+          )
         )
       );
     }
@@ -24280,19 +24304,20 @@ var _App2 = _interopRequireDefault(_App);
 
 __webpack_require__(371);
 
+var _fakeData = __webpack_require__(860);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* ----- DUMMY DATA ----- */
-
-
-/* ----- IMPORT COMPONENTS ----- */
-var data = [{ quarter: 1, earnings: 13000 }, { quarter: 2, earnings: 16500 }, { quarter: 3, earnings: 14250 }, { quarter: 4, earnings: 19000 }];
 
 /* ----- RENDER TO DOM ----- */
 
 
 //load main css
-_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: data }), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: _fakeData.dataObj }), document.getElementById('root'));
+
+/* ----- DUMMY DATA ----- */
+
+
+/* ----- IMPORT COMPONENTS ----- */
 
 /***/ }),
 /* 375 */,
@@ -26223,7 +26248,7 @@ exports = module.exports = __webpack_require__(380)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nnav {\n  padding: 10px;\n  margin-bottom: 20px;\n  display: block;\n  background-color: #6adbe8;\n  color: white; }\n\n.flexcontainer {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n.footer {\n  background-color: #6adbe8;\n  padding: 10px;\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  color: white; }\n  .footer a :link {\n    color: white; }\n  .footer a :visited {\n    color: white; }\n  .footer a :hover {\n    color: #1b3a6b; }\n  .footer a :active {\n    color: #1b3a6b; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white; }\n\n#visualizerBlock {\n  background-color: white; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: relative;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 
@@ -58342,6 +58367,111 @@ VictoryVoronoiContainer=_victoryChart.VictoryVoronoiContainer;exports.VoronoiHel
 combineContainerMixins=_victoryChart.combineContainerMixins;exports.createContainer=_victoryChart.createContainer;exports.
 addEvents=_victoryCore.addEvents;exports.Collection=_victoryCore.Collection;exports.Data=_victoryCore.Data;exports.DefaultTransitions=_victoryCore.DefaultTransitions;exports.Domain=_victoryCore.Domain;exports.Events=_victoryCore.Events;exports.Helpers=_victoryCore.Helpers;exports.Log=_victoryCore.Log;exports.
 PropTypes=_victoryCore.PropTypes;exports.Scale=_victoryCore.Scale;exports.Style=_victoryCore.Style;exports.TextSize=_victoryCore.TextSize;exports.Transitions=_victoryCore.Transitions;exports.Selection=_victoryCore.Selection;
+
+/***/ }),
+/* 860 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var sampleObj = {
+  "documentSentiment": {
+    "magnitude": 3.4,
+    "score": 0.4
+  },
+  "language": "en",
+  "sentences": [{
+    "text": {
+      "content": "But my grandfather had larger dreams for his son.",
+      "beginOffset": 0
+    },
+    "sentiment": {
+      "magnitude": 0.5,
+      "score": 0.5
+    }
+  }, {
+    "text": {
+      "content": "Through hard work and perseverance my father got a scholarship to study in a magical place: America, which stood as a beacon of freedom and opportunity to so many who had come before.",
+      "beginOffset": 50
+    },
+    "sentiment": {
+      "magnitude": 0.8,
+      "score": 0.8
+    }
+  }, {
+    "text": {
+      "content": "While studying here, my father met my mother.",
+      "beginOffset": 234
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "She was born in a town on the other side of the world, in Kansas.",
+      "beginOffset": 280
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "Her father worked on oil rigs and farms through most of the Depression.",
+      "beginOffset": 346
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "The day after Pearl Harbor he signed up for duty, joined Patton's army and marched across Europe.",
+      "beginOffset": 418
+    },
+    "sentiment": {
+      "magnitude": 0.5,
+      "score": 0.5
+    }
+  }, {
+    "text": {
+      "content": "Back home, my grandmother raised their baby and went to work on a bomber assembly line.",
+      "beginOffset": 516
+    },
+    "sentiment": {
+      "magnitude": 0.1,
+      "score": 0.1
+    }
+  }, {
+    "text": {
+      "content": "After the war, they studied on the GI Bill, bought a house through FHA, and moved west in search of opportunity.",
+      "beginOffset": 604
+    },
+    "sentiment": {
+      "magnitude": 0.2,
+      "score": 0.2
+    }
+  }]
+};
+
+var genData = function genData(arr) {
+  return arr.map(function (obj) {
+    return {
+      sentenceOffset: obj.text.beginOffset,
+      sentiment: obj.sentiment.score
+    };
+  });
+};
+
+var dataObj = exports.dataObj = {
+  documentSentiment: sampleObj.documentSentiment,
+  sentences: genData(sampleObj.sentences)
+};
 
 /***/ })
 /******/ ]);

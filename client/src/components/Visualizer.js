@@ -1,57 +1,65 @@
 import React, { Component } from 'react'
 import * as V from 'victory'
 
-const data = [
-  { stanza: 1, sentiment: -0.5 },
-  { stanza: 2, sentiment: 0.3 },
-  { stanza: 3, sentiment: 0.8 },
-  { stanza: 4, sentiment: 0.9 },
-  { stanza: 5, sentiment: -0.2 }
-]
-
-const maxStanza = (arr) => {
-  let max = 0
-  arr.forEach(obj => {
-    if (obj.stanza > max) max = obj.stanza
-  })
-  return max
-}
-const domainX = [ -1, maxStanza(data) ]
-const domain = { x: domainX, y: [-1, 1] }
-
 export default class Visualizer extends Component {
+  constructor() {
+    super()
+    this.docLength = this.docLength.bind(this)
+    this.domainX = this.domainX.bind(this)
+    this.domain = this.domain.bind(this)
+  }
+  docLength(arr) {
+    let max = 0
+    arr.forEach(obj => {
+      if (obj.sentenceOffset > max) max = obj.sentenceOffset
+    })
+    return max
+  }
+  domainX() {
+    return [-1, this.docLength(this.props.data.sentences)]
+  }
+  domain() {
+    return {
+      x: this.domainX(),
+      y: [-1, 1]
+    }
+  }
   render() {
     return (
-      <div>
-        <h2>sentimentagram</h2>
-        <V.VictoryChart
-          domainPadding={20}
-          theme={V.VictoryTheme.material}
-          containerComponent={<V.VictoryVoronoiContainer />}
-        >
-          <V.VictoryAxis
-          />
-          <V.VictoryAxis
-            dependentAxis
-          />
+      <div className="flexcontainer-vertical">
+        <div>
+          <h2 className="center text-center text-bottom">sentimentagram</h2>
+        </div>
+        <div>
+          <V.VictoryChart
+            domainPadding={5}
+            theme={V.VictoryTheme.material}
+            width={500}
+            height={300}
+            padding={50}
+            containerComponent={<V.VictoryVoronoiContainer />}
+            domain={this.domain()}
+          >
+          <V.VictoryAxis />
+          <V.VictoryAxis dependentAxis />
           <V.VictoryScatter
-            data={data}
-            x="stanza"
+            data={this.props.data.sentences}
+            x="sentenceOffset"
             y="sentiment"
             size={(datum, active) => active ? 5 : 3}
-            domain={domain}
+
           />
           <V.VictoryLine
-            data={data}
-            x="stanza"
+            data={this.props.data.sentences}
+            x="sentenceOffset"
             y="sentiment"
             labels={datum => datum.y}
             labelComponent={<V.VictoryTooltip />}
             size={(datum, active) => active ? 5 : 3}
             interpolation="basis"
-            domain={domain}
           />
-        </V.VictoryChart>
+          </V.VictoryChart>
+        </div>
       </div>
     )
   }

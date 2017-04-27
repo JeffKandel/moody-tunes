@@ -46,27 +46,47 @@ table {
 
 /* ----- PROJECT STYLING ----- */
 
-$navfootercolor: #6adbe8;
-$activelinkcolor: #1b3a6b;
+$nav-footer-color: #d64660;
+$corpus-block-color: white;
+$vis-block-color: white;
+$active-link-color: #1b3a6b;
+$subnav-color: white;
 
-nav {
-	padding: 10px;
-	margin-bottom: 20px;
-	display: block;
-	background-color: $navfootercolor;
-	color: white
-}
-
-.flexcontainer {
+.flexcontainer-horizontal {
   display: -webkit-flex;
   display: flex;
 	-webkit-flex-direction: row;
   flex-direction: row;
 }
 
+.flexcontainer-vertical {
+  display: -webkit-flex;
+  display: flex;
+	-webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+#appBlock {
+	height: 100%;
+	display: flex
+}
+
+nav {
+	padding: 10px;
+	display: block;
+	background-color: $nav-footer-color;
+	color: white;
+	display: inline-flex;
+	flex-grow: 1
+}
+
 .left {
-   -webkit-align-self: flex-start;
-   align-self: flex-start;
+	-webkit-align-self: flex-start;
+	align-self: flex-start;
+}
+
+.center {
+	align-self: center
 }
 
 .right {
@@ -74,26 +94,39 @@ nav {
 	padding: 15px 0
 }
 
+#corpusBlock {
+	background-color: $corpus-block-color
+}
+
+#visualizerBlock {
+	background-color: $vis-block-color
+}
+
 .footer {
-	background-color: $navfootercolor;
+	background-color: $nav-footer-color;
 	padding: 10px;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	position: relative;
 	color: white;
-	a {
-		:link {
-			color: white
-		}
-		:visited {
-			color: white
-		}
-		:hover {
-			color: $activelinkcolor
-		}
-		:active {
-			color: $activelinkcolor
-		}
+	display: inline-flex;
+	flex-grow: 1;
+}
+
+.subnav {
+	color: $subnav-color
+}
+
+a {
+	color: $subnav-color;
+	:link {
+		color: $subnav-color
+	}
+	:visited {
+		color: $subnav-color
+	}
+	:hover {
+		color: $active-link-color
+	}
+	:active {
+		color: $subnav-color
 	}
 }

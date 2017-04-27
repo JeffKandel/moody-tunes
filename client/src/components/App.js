@@ -11,17 +11,17 @@ import Footer from './Footer.js'
 export default class App extends Component {
   render() {
     return (
-      <div>
-      <NavBar />
-      <div id="body" className="row">
-        <div className="col-md-6">
-          Corpus will eventually go here
+      <div className="flexcontainer-vertical" id="appBlock">
+        <NavBar />
+        <div id="bodyBlock" className="row">
+          <div id="corpusBlock" className="col-md-4">
+            Corpus will eventually go here
+          </div>
+          <div id="visualizerBlock" className="col-md-8">
+            <Visualizer data={this.props.data} />
+          </div>
         </div>
-        <div className="col-md-6">
-          <Visualizer data={this.props.data} />
-        </div>
-      </div>
-      <Footer />
+        <Footer />
       </div>
     )
   }

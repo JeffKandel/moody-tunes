@@ -8,15 +8,11 @@ import App from './components/App.js'
 import './public/stylesheets/index.scss'
 
 /* ----- DUMMY DATA ----- */
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 }
-]
+import {dataObj} from './fakeData.js'
 
 /* ----- RENDER TO DOM ----- */
 ReactDOM.render(
-  <App data={data} />,
+  <App data={dataObj} />,
   document.getElementById('root')
 )
+
