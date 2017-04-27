@@ -12413,77 +12413,7 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _sampleComponent = __webpack_require__(117);
-
-var _sampleComponent2 = _interopRequireDefault(_sampleComponent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var App = function App() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(_sampleComponent2.default, null)
-  );
-};
-
-//load components
-exports.default = App;
-
-//React Router v4 Notes - from https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
-
-/*
-
-*** Route ***
-<Route path="/roster" />   <-- This does not match '/', but matches '/roster', and '/roster2'
-Anywhere you put a route in a router, if the path amtches, a React component will render
-
-
-*** Switch ***
-In v4 we can use <Switch > to hold a group fo Routes
-Switch ensures that only one of those routes will be rendered
-
-<Switch>
-      <Route exact path='/' component={Home}/>
-      <Route path='/roster' component={Roster}/>
-      <Route path='/schedule' component={Schedule}/>
-</Switch>
-
-Exact - route should only match when the pathname matches the route's path exactly
-
-Example of another switch within /roster
-const Roster = () => (
-  <Switch>
-    <Route exact path='/roster' component={FullRoster}/>
-    <Route path='/roster/:number' component={Player}/>
-  </Switch>
-)
-
-The :number part of the path /roster/:number means that the part of the pathname that comes after /roster/ will be captured and stored as match.params.number
-
-
-
-*** Links ***
-Finally, our application needs a way to navigate between pages. If we were to create links using anchor elements, clicking on them would cause the whole page to reload. React Router provides a <Link> component to prevent that from happening. When clicking a <Link>, the URL will be updated and the rendered content will change without reloading the page.
-
-
-*/
-
-/***/ }),
+/* 113 */,
 /* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12579,126 +12509,7 @@ if(false) {
 }
 
 /***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(65);
-
-var _store = __webpack_require__(64);
-
-var _store2 = _interopRequireDefault(_store);
-
-var _dummyReducer = __webpack_require__(66);
-
-__webpack_require__(277);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// Project Dependencies
-
-
-var SampleComponent = function (_Component) {
-  _inherits(SampleComponent, _Component);
-
-  function SampleComponent(props) {
-    _classCallCheck(this, SampleComponent);
-
-    var _this = _possibleConstructorReturn(this, (SampleComponent.__proto__ || Object.getPrototypeOf(SampleComponent)).call(this, props));
-
-    _this.state = {};
-
-    _this.messageNumber = 0;
-    //attach bound functions here
-    //this.func = this.func.bind(this)
-    return _this;
-  }
-
-  _createClass(SampleComponent, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.messageId = setInterval(function () {
-        //incrememnt message id and send to reducer
-        _this2.changeMessage();
-      }, 1000);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      clearInterval(this.messageId);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'sample' },
-        _react2.default.createElement(
-          'h4',
-          { className: 'sampleHeader' },
-          'Skip the Boring Stuff!'
-        ),
-        _react2.default.createElement(
-          'h6',
-          { className: 'sampleHeader' },
-          'I can do ',
-          this.props.message
-        )
-      );
-    }
-  }, {
-    key: 'changeMessage',
-    value: function changeMessage() {
-      ++this.messageNumber;
-      if (this.messageNumber > _dummyReducer.amountOfMessages) {
-        this.messageNumber = 0;
-      }
-      _store2.default.dispatch((0, _dummyReducer.updateMessage)(this.messageNumber));
-    }
-  }]);
-
-  return SampleComponent;
-}(_react.Component);
-
-// EXAMPLE
-
-
-var mapState = function mapState(state) {
-  // The reducers are combined in reducers/index.js and that is where their name is set
-  // The format is state.REDUCERNAME.propertyOfREDUCERNAME
-  return {
-    message: state.dummyReducer.message
-  };
-};
-
-// Unused example mapDispatch function
-// const mapDispatch = state => {
-//   return {};
-// }
-
-exports.default = (0, _reactRedux.connect)(mapState, null)(SampleComponent);
-
-/***/ }),
+/* 117 */,
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12721,25 +12532,35 @@ var _store = __webpack_require__(64);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _app = __webpack_require__(113);
+var _NavBar = __webpack_require__(288);
 
-var _app2 = _interopRequireDefault(_app);
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _App = __webpack_require__(286);
+
+var _App2 = _interopRequireDefault(_App);
+
+var _Footer = __webpack_require__(287);
+
+var _Footer2 = _interopRequireDefault(_Footer);
 
 __webpack_require__(116);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* ----- COMPONENTS ----- */
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: _store2.default },
-  _react2.default.createElement(
-    _reactRouterDom.BrowserRouter,
-    null,
-    _react2.default.createElement(_app2.default, null)
-  )
+  _react2.default.createElement(_NavBar2.default, null),
+  _react2.default.createElement(_App2.default, null),
+  _react2.default.createElement(_Footer2.default, null)
 ), document.getElementById('app'));
 
 //load main css
+
+
+/* ----- REDUX STORE ----- */
 
 /***/ }),
 /* 119 */
@@ -14687,20 +14508,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)))
 
 /***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(67)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".sample {\n  background-color: CornflowerBlue;\n  height: 150px;\n  padding: 20px;\n  text-align: center;\n  font-size: 2em; }\n\n.sampleHeader {\n  margin: 20px; }\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 122 */,
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31073,32 +30881,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(122);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(112)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./sampleComponentStyle.scss", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./sampleComponentStyle.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 277 */,
 /* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31243,6 +31026,104 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Corpus = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Corpus\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _Corpus2 = _interopRequireDefault(_Corpus);
+
+var _Visualizer = __webpack_require__(289);
+
+var _Visualizer2 = _interopRequireDefault(_Visualizer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* ----- COMPONENT ----- */
+
+/* ----- IMPORT COMPONENTS ----- */
+var App = function App() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      { className: 'col-md-6' },
+      _react2.default.createElement(_Corpus2.default, null)
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'col-md-6' },
+      _react2.default.createElement(_Visualizer2.default, null)
+    )
+  );
+};
+
+exports.default = App;
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Visualizer = function Visualizer(_ref) {
+  var corpus = _ref.corpus;
+
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(
+      "h2",
+      null,
+      "sentimentagram"
+    ),
+    _react2.default.createElement("div", { className: "plot-sentiment" })
+  );
+};
+
+exports.default = Visualizer;
 
 /***/ })
 /******/ ]);
