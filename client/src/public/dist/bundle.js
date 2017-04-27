@@ -26248,7 +26248,7 @@ exports = module.exports = __webpack_require__(380)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white; }\n\n#visualizerBlock {\n  background-color: white; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: relative;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white; }\n\n#visualizerBlock {\n  background-color: white;\n  padding-bottom: 20px; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: relative;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 
@@ -58378,7 +58378,115 @@ PropTypes=_victoryCore.PropTypes;exports.Scale=_victoryCore.Scale;exports.Style=
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var sampleObj = {
+var kendrickPoetic = {
+  "documentSentiment": {
+    "magnitude": 4.3,
+    "score": 0.2
+  },
+  "language": "en",
+  "sentences": [{
+    "text": {
+      "content": "[Intro - Kendrick Lamar:]\nEvery second, every minute, man, I swear that she can get it\nSay if you a bad bitch put your hands up high, hands up high, hands up high\nTell 'em dim the lights down right now, put me in the mood\nI'm talking 'bout dark room, perfume, go, go",
+      "beginOffset": 0
+    },
+    "sentiment": {
+      "magnitude": 0.2,
+      "score": 0.2
+    }
+  }, {
+    "text": {
+      "content": "[Verse 1 - Kendrick Lamar:]\nI recognize your fragrance, hold up, you ain't never gotta say shit, uh\nAnd I know your taste is, a little bit hmm, high maintenance, uh\nEverybody else basic, you live life on an everyday basis\nWith poetic justice, poetic justice\nIf I told you that a flower bloomed in a dark room, would you trust it?",
+      "beginOffset": 268
+    },
+    "sentiment": {
+      "magnitude": 0,
+      "score": 0
+    }
+  }, {
+    "text": {
+      "content": "I mean I write poems in these songs dedicated to you when\nYou're in the mood for empathy, there's blood in my pen\nBetter yet, where your friends and 'em?",
+      "beginOffset": 598
+    },
+    "sentiment": {
+      "magnitude": 0.5,
+      "score": 0.5
+    }
+  }, {
+    "text": {
+      "content": "I really wanna know you all\nI really wanna show you off, fuck that\nPour up plenty of champagne, cold nights when you curse this name\nYou called up your girlfriends and y'all curled in that little bitty Range I heard that\nShe wanna go and party, she wanna go and party\nNigga don't approach her with that Atari, nigga, that ain't good game, homie, sorry\nThey say conversation rule a nation, I can tell\nBut I could never right my wrongs 'less I write it down for real, P.S",
+      "beginOffset": 752
+    },
+    "sentiment": {
+      "magnitude": 0.4,
+      "score": -0.4
+    }
+  }, {
+    "text": {
+      "content": "[Hook - Kendrick Lamar:]\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song",
+      "beginOffset": 1223
+    },
+    "sentiment": {
+      "magnitude": 0.6,
+      "score": 0.6
+    }
+  }, {
+    "text": {
+      "content": "[Verse 2 - Drake:]\nI really hope you play this, 'cause ol' girl, you test my patience\nWith all these seductive photographs and all these one off vacations\nYou've been taking clearly a lot for me to take in, it don't make sense\nYoung East African girl, you too busy fucking with your other man\nI was tryna put you on game, put you on a plane\nTake you and your momma to the motherland, I could do it\nMaybe one day when you figure out you're gonna need someone\nWhen you figure out it's alright here in the city and you don't run from where we come from\nThat sound like poetic justice, poetic justice\nYou were so new to this life but Goddamn, you got adjusted\nI mean I write poems in these songs dedicated to the fun sex\nYour natural hair and your soft skin and your big ass in that sundress, ooh\nGood God, what you doing that walk for?",
+      "beginOffset": 1587
+    },
+    "sentiment": {
+      "magnitude": 0.4,
+      "score": 0.4
+    }
+  }, {
+    "text": {
+      "content": "When I see that thing move, I just wish we would fight less and we would talk more\nAnd they say communication save relations, I can tell\nBut I can never right my wrongs unless I write 'em down for real, P.S",
+      "beginOffset": 2420
+    },
+    "sentiment": {
+      "magnitude": 0,
+      "score": 0
+    }
+  }, {
+    "text": {
+      "content": "[Hook - Kendrick Lamar:]\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song",
+      "beginOffset": 2628
+    },
+    "sentiment": {
+      "magnitude": 0.6,
+      "score": 0.6
+    }
+  }, {
+    "text": {
+      "content": "[Verse 3 - Kendrick Lamar:]\nEvery time I write these words, they become a taboo\nMaking sure my punctuation curve, every letter here's true\nLiving my life in the margin and that metaphor was proof\nI'm talking poetic justice, poetic justice\nIf I told you that a flower bloomed in a dark room, would you trust it?",
+      "beginOffset": 2992
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": 0.3
+    }
+  }, {
+    "text": {
+      "content": "I mean you need to hear this, love is not just a verb\nIt's you looking in the mirror, love is not just a verb\nIt's you looking for it, maybe, call me crazy, we can both be insane\nA fatal attraction is common and what we have common is pain\nI mean you need to hear this, love is not just a verb\nAnd I can see power steering, sex drive when you swerve\nI want that interference, it's coherent, I can hear it, uh-huh\nThat's your heartbeat, it either caught me or it called me, uh-huh\nRead slow and you'll find gold mines in these lines\nSincerely, yours truly and right before you go blind, P.S",
+      "beginOffset": 3303
+    },
+    "sentiment": {
+      "magnitude": 0.3,
+      "score": -0.3
+    }
+  }, {
+    "text": {
+      "content": "[Hook - Kendrick Lamar:]\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song\nYou can get it, you can get it\nYou can get it, you can get it\nAnd I know just, know just, know just, know just, know just what you want\nPoetic justice, put it in a song",
+      "beginOffset": 3894
+    },
+    "sentiment": {
+      "magnitude": 0.6,
+      "score": 0.6
+    }
+  }]
+};
+
+var barackSpeech = {
   "documentSentiment": {
     "magnitude": 3.4,
     "score": 0.4
@@ -58468,10 +58576,12 @@ var genData = function genData(arr) {
   });
 };
 
-var dataObj = exports.dataObj = {
-  documentSentiment: sampleObj.documentSentiment,
-  sentences: genData(sampleObj.sentences)
-};
+var dataObj = exports.dataObj = function (obj) {
+  return {
+    documentSentiment: obj.documentSentiment,
+    sentences: genData(obj.sentences)
+  };
+}(kendrickPoetic);
 
 /***/ })
 /******/ ]);
