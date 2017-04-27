@@ -1,23 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
 
-/* ----- REDUX STORE ----- */
-import store from './store.js'
-
-/* ----- COMPONENTS ----- */
-import NavBar from './components/NavBar.js'
+/* ----- IMPORT COMPONENTS ----- */
 import App from './components/App.js'
-import Footer from './components/Footer.js'
 
 //load main css
 import './public/stylesheets/index.scss'
 
+/* ----- DUMMY DATA ----- */
+const data = [
+  { quarter: 1, earnings: 13000 },
+  { quarter: 2, earnings: 16500 },
+  { quarter: 3, earnings: 14250 },
+  { quarter: 4, earnings: 19000 }
+]
+
+/* ----- RENDER TO DOM ----- */
 ReactDOM.render(
-  (<Provider store={store} >
-    <NavBar />
-    <App />
-    <Footer />
-  </Provider>),
-  document.getElementById('app'))
+  (<App data={data} />),
+  document.getElementById('root')
+)

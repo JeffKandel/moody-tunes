@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 
-/* ----- IMPORT COMPONENTS ----- */
+/* ----- IMPORT SUBCOMPONENTS ----- */
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
 
 /* ----- COMPONENT ----- */
 
-const App = () => (
-  <div>
-    <div className="col-md-6">
-      <Corpus />
-    </div>
-    <div className="col-md-6">
-      <Visualizer />
-    </div>
-  </div>
-)
-
-export default App
-
+export default class App extends Component {
+  render() {
+    return (
+      <div id="body" className="row">
+        <div className="col-md-6">
+          Corpus will eventually go here
+        </div>
+        <div className="col-md-6">
+          <Visualizer data={this.props.data} />
+        </div>
+      </div>
+    )
+  }
+}
