@@ -44,11 +44,16 @@ table {
 	border-spacing: 0;
 }
 
+/* ----- PROJECT STYLING ----- */
+
+$navfootercolor: #6adbe8;
+$activelinkcolor: #1b3a6b;
+
 nav {
 	padding: 10px;
 	margin-bottom: 20px;
 	display: block;
-	background-color: #e0385c;
+	background-color: $navfootercolor;
 	color: white
 }
 
@@ -67,4 +72,28 @@ nav {
 .right {
 	margin-left: auto;
 	padding: 15px 0
+}
+
+.footer {
+	background-color: $navfootercolor;
+	padding: 10px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	color: white;
+	a {
+		:link {
+			color: white
+		}
+		:visited {
+			color: white
+		}
+		:hover {
+			color: $activelinkcolor
+		}
+		:active {
+			color: $activelinkcolor
+		}
+	}
 }

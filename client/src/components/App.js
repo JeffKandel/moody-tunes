@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import NavBar from './NavBar.js'
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
+import Footer from './Footer.js'
 
 /* ----- COMPONENT ----- */
 
@@ -20,6 +21,7 @@ export default class App extends Component {
           <Visualizer data={this.props.data} />
         </div>
       </div>
+      <Footer />
       </div>
     )
   }
