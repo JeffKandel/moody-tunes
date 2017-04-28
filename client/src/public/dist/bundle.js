@@ -23966,6 +23966,7 @@ var App = function (_Component) {
     value: function handleSubmit(evt) {
       var _this2 = this;
 
+      evt.preventDefault();
       var postBody = {
         "document": {
           "content": evt.target.corpus.value,
@@ -23974,8 +23975,9 @@ var App = function (_Component) {
         },
         "encodingType": "UTF8"
       };
+      console.log(postBody);
       _axios2.default.post('https://language.googleapis.com/v1/documents:analyzeSentiment?key=' + _secrets.googleKey, postBody).then(function (res) {
-        _this2.mapResToState(res.body);
+        _this2.mapResToState(res.data);
       });
     }
   }, {
@@ -24011,12 +24013,12 @@ var App = function (_Component) {
           _react2.default.createElement(
             'div',
             { id: 'corpusBlock', className: 'col-md-4' },
-            'Corpus will eventually go here'
+            _react2.default.createElement(_Corpus2.default, { handleSubmit: this.handleSubmit })
           ),
           _react2.default.createElement(
             'div',
             { id: 'visualizerBlock', className: 'col-md-8' },
-            _react2.default.createElement(_Visualizer2.default, { data: this.state.data, handleSubmit: this.handleSubmit })
+            _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
           )
         ),
         _react2.default.createElement(_Footer2.default, null)
@@ -24227,24 +24229,33 @@ var Corpus = function (_Component) {
   function Corpus() {
     _classCallCheck(this, Corpus);
 
-    return _possibleConstructorReturn(this, (Corpus.__proto__ || Object.getPrototypeOf(Corpus)).call(this));
+    return _possibleConstructorReturn(this, (Corpus.__proto__ || Object.getPrototypeOf(Corpus)).apply(this, arguments));
   }
 
   _createClass(Corpus, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      _react2.default.createElement(
-        'div',
+      return _react2.default.createElement(
+        "div",
         null,
         _react2.default.createElement(
-          'form',
-          null,
+          "form",
+          {
+            onSubmit: this.props.handleSubmit
+          },
           _react2.default.createElement(
-            'label',
+            "label",
             null,
-            'Corpus stuff goes here'
+            "Corpus stuff goes here"
           ),
-          _react2.default.createElement('textarea', null)
+          _react2.default.createElement("textarea", {
+            name: "corpus"
+          }),
+          _react2.default.createElement(
+            "button",
+            null,
+            "Submit"
+          )
         )
       );
     }

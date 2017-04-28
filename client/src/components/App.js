@@ -22,6 +22,7 @@ export default class App extends Component {
     this.parseSentences = this.parseSentences.bind(this)
   }
   handleSubmit(evt) {
+    evt.preventDefault()
     const postBody = {
       "document": {
         "content": evt.target.corpus.value,
@@ -30,9 +31,10 @@ export default class App extends Component {
       },
       "encodingType": "UTF8"
     }
+    console.log(postBody)
     axios.post(`https://language.googleapis.com/v1/documents:analyzeSentiment?key=${googleKey}`, postBody)
       .then(res => {
-        this.mapResToState(res.body)
+        this.mapResToState(res.data)
       })
   }
   parseSentences(arr) {
@@ -57,10 +59,10 @@ export default class App extends Component {
         <NavBar />
         <div id="bodyBlock" className="row">
           <div id="corpusBlock" className="col-md-4">
-            Corpus will eventually go here
+            <Corpus handleSubmit={this.handleSubmit} />
           </div>
           <div id="visualizerBlock" className="col-md-8">
-            <Visualizer data={this.state.data} handleSubmit={this.handleSubmit} />
+            <Visualizer data={this.state.data} />
           </div>
         </div>
         <Footer />
