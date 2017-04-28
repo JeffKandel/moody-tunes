@@ -9,6 +9,8 @@
   "author": "@emtseng",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.1",
+    "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
     "d3": "^4.8.0",

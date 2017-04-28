@@ -20,7 +20,7 @@ export default class Visualizer extends Component {
   }
   domain() {
     return {
-      x: this.domainX(),
+      x: this.props.data.sentences ? this.domainX() : [-1, 10],
       y: [-1, 1]
     }
   }
@@ -40,24 +40,24 @@ export default class Visualizer extends Component {
             containerComponent={<V.VictoryVoronoiContainer />}
             domain={this.domain()}
           >
-          <V.VictoryAxis />
-          <V.VictoryAxis dependentAxis />
-          <V.VictoryScatter
-            data={this.props.data.sentences}
-            x="sentenceOffset"
-            y="sentiment"
-            size={(datum, active) => active ? 5 : 3}
+            <V.VictoryAxis />
+            <V.VictoryAxis dependentAxis />
+            <V.VictoryScatter
+              data={this.props.data.sentences && this.props.data.sentences}
+              x="sentenceOffset"
+              y="sentiment"
+              size={(datum, active) => active ? 5 : 3}
 
-          />
-          <V.VictoryLine
-            data={this.props.data.sentences}
-            x="sentenceOffset"
-            y="sentiment"
-            labels={datum => datum.y}
-            labelComponent={<V.VictoryTooltip />}
-            size={(datum, active) => active ? 5 : 3}
-            interpolation="basis"
-          />
+            />
+            <V.VictoryLine
+              data={this.props.data.sentences && this.props.data.sentences}
+              x="sentenceOffset"
+              y="sentiment"
+              labels={datum => datum.y}
+              labelComponent={<V.VictoryTooltip />}
+              size={(datum, active) => active ? 5 : 3}
+              interpolation="basis"
+            />
           </V.VictoryChart>
         </div>
       </div>

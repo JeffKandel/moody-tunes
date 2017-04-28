@@ -16,4 +16,4 @@ export const dataObj = (function(obj) {
     documentSentiment: obj.documentSentiment,
     sentences: genData(obj.sentences)
   }
-})(barackSpeech)
+})(kendrickPoeticJustice)
