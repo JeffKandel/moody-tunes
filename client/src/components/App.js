@@ -134,7 +134,7 @@ export default class App extends Component {
     })
     const postBody = {
       "document": {
-        "content": evt.target.corpus.value,
+        "content": this.state.corpus,
         "language": "EN",
         "type": "PLAIN_TEXT"
       },
