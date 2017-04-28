@@ -9,9 +9,7 @@ import NavBar from './NavBar.js'
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
 import Footer from './Footer.js'
-// import Loading from './Loading.js'
 import LoginSpotify from './LoginSpotify.js'
-import LoginGenius from './LoginGenius.js'
 
 /* ----- COMPONENT ----- */
 
@@ -23,7 +21,8 @@ export default class App extends Component {
       isLoading: false,
       isLoggedIntoSpotify: false,
       currSong: '',
-      currArtist: ''
+      currArtist: '',
+      corpus: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.mapResToState = this.mapResToState.bind(this)
@@ -42,7 +41,12 @@ export default class App extends Component {
         <div id="bodyBlock" className="row">
           <div className="col-md-4">
             {this.state.isLoggedIntoSpotify ?
-              <Corpus handleSubmit={this.handleSubmit} />
+              <Corpus
+                handleSubmit={this.handleSubmit}
+                corpus={this.state.corpus}
+                currSong={this.state.currSong}
+                currArtist={this.state.currArtist}
+              />
               :
               <LoginSpotify handleSpotifyLogin={this.handleSpotifyLogin} />
             }
@@ -71,12 +75,10 @@ export default class App extends Component {
       e,
       regQuery = /([^&;=]+)=?([^&;]*)/g,
       query = window.location.hash.substring(1)
-    console.log(query)
 
     while (e = regQuery.exec(query)) {
       hashParams[e[1]] = decodeURIComponent(e[2])
     }
-    console.log("hashParams", hashParams)
     return hashParams
   }
   generateRandomString(length) {
@@ -91,11 +93,10 @@ export default class App extends Component {
     if (token) {
       return axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
         .then(res => {
-          console.log(res)
           this.setState({
             isLoggedIntoSpotify: true,
             currSong: res.data.item.name,
-            currArtist: res.data.item.artists[0] //TODO: write util converting an artist object with multiple artists into a flat array separated by spaces
+            currArtist: res.data.item.artists[0].name //TODO: write util converting an artist object with multiple artists into a flat array separated by spaces
           })
           this.grabSongLyrics()
         })
@@ -106,29 +107,24 @@ export default class App extends Component {
     }
   }
   grabSongLyrics() {
-    let url = 'https://api.genius.com/search'
-    url += '?q=' + encodeURIComponent(this.state.currSong + ' ' + this.state.currArtist)
-    return axios.get(url, {
-      headers: { 'Authorization': 'Bearer ' + geniusClientAccessToken }
-    })
-      .then(res => {
-        console.log(res)
+    return axios.get(`/api/lyrics/${encodeURIComponent(this.state.currArtist)}/${encodeURIComponent(this.state.currSong)}`)
+    .then(res => {
+      this.setState({
+        corpus: res.data.lyric
       })
+    })
   }
   handleSpotifyLogin(evt) {
     evt.preventDefault()
     const newKey = this.generateRandomString(16)
-    console.log("newKey - spotify", newKey)
     //state is not being set here
     window.localStorage['spotifyAuthKey'] = newKey
-    console.log("localStorage['spotifyAuthKey']", localStorage['spotifyAuthKey'])
     let url = 'https://accounts.spotify.com/authorize'
     url += '?response_type=token'
     url += '&client_id=' + encodeURIComponent(spotifyClientId)
     url += '&scope=' + encodeURIComponent('user-read-currently-playing')
     url += '&redirect_uri=' + encodeURIComponent(spotifyRedirectURI)
     url += '&state=' + encodeURIComponent(localStorage['spotifyAuthKey'])
-    console.log("url", url)
     window.location = url
   }
   handleSubmit(evt) {

@@ -1,14 +1,19 @@
-const router = require('express').Router();
+const getLyrics = require('lyric-get').get
+const router = require('express').Router()
 
-
-//delegate to further api routes
-router.use('/sample', require('./sampleAPIBranch/'));
-
-
-router.use( (req, res, next) => {
-  const err = new Error('API Route not found!');
-  err.status = 404;
-  next(err);
+router.get('/lyrics/:artist/:song', (req, res, next) => {
+  getLyrics(req.params.artist, req.params.song, (err, r) => {
+    console.log("r", r)
+    if (err) return next(err)
+    res.send({ lyric: r })
+  })
 })
 
-module.exports = router;
+router.use((req, res, next) => {
+  const err = new Error('API Route not found!')
+  err.status = 404
+  next(err)
+})
+
+module.exports = router
+

@@ -15,6 +15,7 @@
     "bootstrap": "^3.3.7",
     "d3": "^4.8.0",
     "express": "^4.15.2",
+    "lyric-get": "^1.0.3",
     "nodemon": "^1.11.0",
     "querystring": "^0.2.0",
     "react": "^15.5.4",
