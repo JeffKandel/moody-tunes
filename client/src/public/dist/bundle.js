@@ -23931,6 +23931,10 @@ var _Footer = __webpack_require__(365);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
+var _Loading = __webpack_require__(891);
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23953,7 +23957,8 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
     _this.state = {
-      data: {}
+      data: {},
+      isLoading: false
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.mapResToState = _this.mapResToState.bind(_this);
@@ -23967,6 +23972,9 @@ var App = function (_Component) {
       var _this2 = this;
 
       evt.preventDefault();
+      this.setState({
+        isLoading: true
+      });
       var postBody = {
         "document": {
           "content": evt.target.corpus.value,
@@ -23975,7 +23983,6 @@ var App = function (_Component) {
         },
         "encodingType": "UTF8"
       };
-      console.log(postBody);
       _axios2.default.post('https://language.googleapis.com/v1/documents:analyzeSentiment?key=' + _secrets.googleKey, postBody).then(function (res) {
         _this2.mapResToState(res.data);
       });
@@ -23986,7 +23993,8 @@ var App = function (_Component) {
       return arr.map(function (obj) {
         return {
           sentenceOffset: obj.text.beginOffset,
-          sentiment: obj.sentiment.score
+          sentiment: obj.sentiment.score,
+          sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
         };
       });
     }
@@ -23997,7 +24005,8 @@ var App = function (_Component) {
         data: {
           documentSentiment: serverResponse.documentSentiment,
           sentences: this.parseSentences(serverResponse.sentences)
-        }
+        },
+        isLoading: false
       });
     }
   }, {
@@ -24018,7 +24027,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             'div',
             { id: 'visualizerBlock', className: 'col-md-8' },
-            _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
+            this.state.isLoading ? _react2.default.createElement(_Loading2.default, null) : _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
           )
         ),
         _react2.default.createElement(_Footer2.default, null)
@@ -24378,7 +24387,7 @@ var Visualizer = function (_Component) {
               x: 'sentenceOffset',
               y: 'sentiment',
               labels: function labels(datum) {
-                return datum.y;
+                return '\'' + datum.sentenceStub + '\' \n ' + datum.sentiment;
               },
               labelComponent: _react2.default.createElement(V.VictoryTooltip, null),
               size: function size(datum, active) {
@@ -26357,7 +26366,7 @@ exports = module.exports = __webpack_require__(380)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white; }\n\n#visualizerBlock {\n  background-color: white;\n  padding-bottom: 20px; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: relative;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white; }\n\n#visualizerBlock {\n  background-color: white;\n  padding-bottom: 20px; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: relative;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 
@@ -60024,6 +60033,56 @@ module.exports = {
   spotifyClientSecret: '56af518f0b244e0bb1df8e2e27fde838',
   googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU'
 };
+
+/***/ }),
+/* 891 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Loading = function (_Component) {
+  _inherits(Loading, _Component);
+
+  function Loading() {
+    _classCallCheck(this, Loading);
+
+    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
+  }
+
+  _createClass(Loading, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "loader" },
+        "Loading..."
+      );
+    }
+  }]);
+
+  return Loading;
+}(_react.Component);
+
+exports.default = Loading;
 
 /***/ })
 /******/ ]);

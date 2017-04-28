@@ -8,6 +8,7 @@ import NavBar from './NavBar.js'
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
 import Footer from './Footer.js'
+import Loading from './Loading.js'
 
 /* ----- COMPONENT ----- */
 
@@ -15,7 +16,8 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      data: {}
+      data: {},
+      isLoading: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.mapResToState = this.mapResToState.bind(this)
@@ -23,6 +25,9 @@ export default class App extends Component {
   }
   handleSubmit(evt) {
     evt.preventDefault()
+    this.setState({
+      isLoading: true
+    })
     const postBody = {
       "document": {
         "content": evt.target.corpus.value,
@@ -31,7 +36,6 @@ export default class App extends Component {
       },
       "encodingType": "UTF8"
     }
-    console.log(postBody)
     axios.post(`https://language.googleapis.com/v1/documents:analyzeSentiment?key=${googleKey}`, postBody)
       .then(res => {
         this.mapResToState(res.data)
@@ -41,7 +45,8 @@ export default class App extends Component {
     return arr.map(obj => {
       return {
         sentenceOffset: obj.text.beginOffset,
-        sentiment: obj.sentiment.score
+        sentiment: obj.sentiment.score,
+        sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
       }
     })
   }
@@ -50,7 +55,8 @@ export default class App extends Component {
       data: {
         documentSentiment: serverResponse.documentSentiment,
         sentences: this.parseSentences(serverResponse.sentences)
-      }
+      },
+      isLoading: false
     })
   }
   render() {
@@ -62,7 +68,10 @@ export default class App extends Component {
             <Corpus handleSubmit={this.handleSubmit} />
           </div>
           <div id="visualizerBlock" className="col-md-8">
-            <Visualizer data={this.state.data} />
+            {this.state.isLoading ?
+              <Loading /> :
+              <Visualizer data={this.state.data} />
+            }
           </div>
         </div>
         <Footer />

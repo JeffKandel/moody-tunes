@@ -53,7 +53,7 @@ export default class Visualizer extends Component {
               data={this.props.data.sentences && this.props.data.sentences}
               x="sentenceOffset"
               y="sentiment"
-              labels={datum => datum.y}
+              labels={datum => `'${datum.sentenceStub}' \n ${datum.sentiment}`}
               labelComponent={<V.VictoryTooltip />}
               size={(datum, active) => active ? 5 : 3}
               interpolation="basis"

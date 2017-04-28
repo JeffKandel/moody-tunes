@@ -51,6 +51,7 @@ $corpus-block-color: white;
 $vis-block-color: white;
 $active-link-color: #1b3a6b;
 $subnav-color: white;
+$loader-color: rgba(0,0,0,.1);
 
 .flexcontainer-horizontal {
   display: -webkit-flex;
@@ -101,6 +102,12 @@ nav {
 #visualizerBlock {
 	background-color: $vis-block-color;
 	padding-bottom: 20px
+}
+
+.loader {
+	background-color: $loader-color;
+	height: 100%;
+	width: 100%;
 }
 
 .footer {
