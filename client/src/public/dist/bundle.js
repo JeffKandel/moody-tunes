@@ -26991,14 +26991,20 @@ var App = function (_Component) {
       currArtist: '',
       corpus: ''
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.mapResToState = _this.mapResToState.bind(_this);
-    _this.parseSentences = _this.parseSentences.bind(_this);
+    /* ----- SPOTIFY LOGIN METHODS ----- */
     _this.handleSpotifyLogin = _this.handleSpotifyLogin.bind(_this);
     _this.getHashParams = _this.getHashParams.bind(_this);
     _this.generateRandomString = _this.generateRandomString.bind(_this);
+
+    /* ----- LYRIC GRABBER + PARSER METHODS ----- */
     _this.grabCurrentSong = _this.grabCurrentSong.bind(_this);
     _this.grabSongLyrics = _this.grabSongLyrics.bind(_this);
+    _this.parseCorpus = _this.parseCorpus.bind(_this);
+
+    /* ----- SENTIMENTAGRAM GENERATOR METHODS ----- */
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.mapResToState = _this.mapResToState.bind(_this);
+    _this.parseSentences = _this.parseSentences.bind(_this);
     return _this;
   }
 
@@ -27093,9 +27099,15 @@ var App = function (_Component) {
       var _this3 = this;
 
       return _axios2.default.get('/api/lyrics/' + encodeURIComponent(this.state.currArtist) + '/' + encodeURIComponent(this.state.currSong)).then(function (res) {
-        _this3.setState({
-          corpus: res.data.lyric
-        });
+        _this3.parseCorpus(res.data.lyric);
+      });
+    }
+  }, {
+    key: 'parseCorpus',
+    value: function parseCorpus(corpus) {
+      corpus.replace('\n\n', '\n').replace('\n', '. ');
+      this.setState({
+        corpus: corpus
       });
     }
   }, {

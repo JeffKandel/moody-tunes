@@ -24,14 +24,20 @@ export default class App extends Component {
       currArtist: '',
       corpus: ''
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.mapResToState = this.mapResToState.bind(this)
-    this.parseSentences = this.parseSentences.bind(this)
+    /* ----- SPOTIFY LOGIN METHODS ----- */
     this.handleSpotifyLogin = this.handleSpotifyLogin.bind(this)
     this.getHashParams = this.getHashParams.bind(this)
     this.generateRandomString = this.generateRandomString.bind(this)
+
+    /* ----- LYRIC GRABBER + PARSER METHODS ----- */
     this.grabCurrentSong = this.grabCurrentSong.bind(this)
     this.grabSongLyrics = this.grabSongLyrics.bind(this)
+    this.parseCorpus = this.parseCorpus.bind(this)
+
+    /* ----- SENTIMENTAGRAM GENERATOR METHODS ----- */
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.mapResToState = this.mapResToState.bind(this)
+    this.parseSentences = this.parseSentences.bind(this)
   }
   render() {
     return (
@@ -109,9 +115,14 @@ export default class App extends Component {
   grabSongLyrics() {
     return axios.get(`/api/lyrics/${encodeURIComponent(this.state.currArtist)}/${encodeURIComponent(this.state.currSong)}`)
     .then(res => {
-      this.setState({
-        corpus: res.data.lyric
-      })
+      this.parseCorpus(res.data.lyric)
+    })
+  }
+  parseCorpus(corpus) {
+    corpus.replace('\n\n', '\n')
+          .replace('\n', '. ')
+    this.setState({
+      corpus
     })
   }
   handleSpotifyLogin(evt) {
