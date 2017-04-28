@@ -24747,9 +24747,13 @@ var _Footer = __webpack_require__(365);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Login = __webpack_require__(896);
+var _LoginSpotify = __webpack_require__(898);
 
-var _Login2 = _interopRequireDefault(_Login);
+var _LoginSpotify2 = _interopRequireDefault(_LoginSpotify);
+
+var _LoginGenius = __webpack_require__(897);
+
+var _LoginGenius2 = _interopRequireDefault(_LoginGenius);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24778,16 +24782,18 @@ var App = function (_Component) {
     _this.state = {
       data: {},
       isLoading: false,
-      isLoggedIn: false,
-      spotifyAuthKey: ''
+      isLoggedIntoSpotify: false,
+      currSong: '',
+      currArtist: ''
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.mapResToState = _this.mapResToState.bind(_this);
     _this.parseSentences = _this.parseSentences.bind(_this);
-    _this.handleLogin = _this.handleLogin.bind(_this);
+    _this.handleSpotifyLogin = _this.handleSpotifyLogin.bind(_this);
     _this.getHashParams = _this.getHashParams.bind(_this);
     _this.generateRandomString = _this.generateRandomString.bind(_this);
     _this.grabCurrentSong = _this.grabCurrentSong.bind(_this);
+    _this.grabSongLyrics = _this.grabSongLyrics.bind(_this);
     return _this;
   }
 
@@ -24804,7 +24810,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-4' },
-            this.state.isLoggedIn ? _react2.default.createElement(_Corpus2.default, { handleSubmit: this.handleSubmit }) : _react2.default.createElement(_Login2.default, { handleLogin: this.handleLogin })
+            this.state.isLoggedIntoSpotify ? _react2.default.createElement(_Corpus2.default, { handleSubmit: this.handleSubmit }) : _react2.default.createElement(_LoginSpotify2.default, { handleSpotifyLogin: this.handleSpotifyLogin })
           ),
           _react2.default.createElement(
             'div',
@@ -24821,9 +24827,9 @@ var App = function (_Component) {
       var params = this.getHashParams(),
           access_token = params.access_token,
           state = params.state,
-          storedState = window.localStorage['spotifyAuthKey'];
-      if (access_token && (state == null || state !== storedState)) {
-        console.log('There was an error during authentication :(');
+          storedSpotifyState = window.localStorage['spotifyAuthKey'];
+      if (access_token && (state == null || state !== storedSpotifyState)) {
+        console.log('There was an error during Spotify authentication :(');
       } else {
         return this.grabCurrentSong(access_token);
       }
@@ -24862,21 +24868,35 @@ var App = function (_Component) {
         return _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
           console.log(res);
           _this2.setState({
-            isLoggedIn: true
+            isLoggedIntoSpotify: true,
+            currSong: res.data.item.name,
+            currArtist: res.data.item.artists[0] //TODO: write util converting an artist object with multiple artists into a flat array separated by spaces
           });
+          _this2.grabSongLyrics();
         });
       } else {
         this.setState({
-          isLoggedIn: false
+          isLoggedIntoSpotify: false
         });
       }
     }
   }, {
-    key: 'handleLogin',
-    value: function handleLogin(evt) {
+    key: 'grabSongLyrics',
+    value: function grabSongLyrics() {
+      var url = 'https://api.genius.com/search';
+      url += '?q=' + encodeURIComponent(this.state.currSong + ' ' + this.state.currArtist);
+      return _axios2.default.get(url, {
+        headers: { 'Authorization': 'Bearer ' + _secrets.geniusClientAccessToken }
+      }).then(function (res) {
+        console.log(res);
+      });
+    }
+  }, {
+    key: 'handleSpotifyLogin',
+    value: function handleSpotifyLogin(evt) {
       evt.preventDefault();
       var newKey = this.generateRandomString(16);
-      console.log("newKey", newKey);
+      console.log("newKey - spotify", newKey);
       //state is not being set here
       window.localStorage['spotifyAuthKey'] = newKey;
       console.log("localStorage['spotifyAuthKey']", localStorage['spotifyAuthKey']);
@@ -62261,7 +62281,11 @@ module.exports = {
   spotifyClientId: '5731dd00e04943969cd5e1d6ce78f8ef',
   spotifyClientSecret: '56af518f0b244e0bb1df8e2e27fde838',
   spotifyRedirectURI: 'http://localhost:3000/',
-  googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU'
+  googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU',
+  geniusClientId: 'whaFWDLeNL6PD4ucQ1tPVYEX7YWxItlOoi1_kKMKcqOg7uHlxLtcaOR61_mtLZ3g',
+  geniusClientSecret: 'bHHX_Kr6KaEQb3_NspcH7o7Jtwsh7oLV-6c-wu8i70F0TP_0ngue9JlMzl87gzgQfnxdtQ3sfjM07nlm0iWp7Q',
+  geniusRedirectURI: 'http://localhost:3000/',
+  geniusClientAccessToken: 'L4RHalR_QbY9HRb_yxCTAt1vTt26Qv4qda94PizUY8pld1j1NQutF01YzEF6ig5-'
 };
 
 /***/ }),
@@ -62270,7 +62294,8 @@ module.exports = {
 /* 893 */,
 /* 894 */,
 /* 895 */,
-/* 896 */
+/* 896 */,
+/* 897 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62314,7 +62339,65 @@ var Login = function (_Component) {
           {
             id: "login-button",
             className: "btn btn-primary",
-            onClick: this.props.handleLogin
+            onClick: this.props.handleGeniusLogin
+          },
+          "Authorize Genius"
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react.Component);
+
+exports.default = Login;
+
+/***/ }),
+/* 898 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = function (_Component) {
+  _inherits(Login, _Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+  }
+
+  _createClass(Login, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "login" },
+        _react2.default.createElement(
+          "button",
+          {
+            id: "login-button",
+            className: "btn btn-primary",
+            onClick: this.props.handleSpotifyLogin
           },
           "Log in with Spotify"
         )

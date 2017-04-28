@@ -7,9 +7,9 @@ export default class Login extends Component {
         <button
           id="login-button"
           className="btn btn-primary"
-          onClick={this.props.handleLogin}
+          onClick={this.props.handleGeniusLogin}
         >
-          Log in with Spotify
+          Authorize Genius
         </button>
       </div>
     )
