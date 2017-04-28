@@ -7,7 +7,7 @@ export default class Corpus extends Component {
         onSubmit={this.props.handleSubmit}
       >
         <label>
-          Corpus stuff goes here
+          Input corpus here
         </label>
         <textarea
           name="corpus"

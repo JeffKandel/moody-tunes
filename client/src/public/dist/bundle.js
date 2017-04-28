@@ -24255,7 +24255,7 @@ var Corpus = function (_Component) {
           _react2.default.createElement(
             "label",
             null,
-            "Corpus stuff goes here"
+            "Input corpus here"
           ),
           _react2.default.createElement("textarea", {
             name: "corpus"
