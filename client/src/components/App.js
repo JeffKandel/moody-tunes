@@ -20,7 +20,8 @@ export default class App extends Component {
     this.state = {
       data: {},
       isLoading: false,
-      isLoggedIn: false
+      isLoggedIn: false,
+      spotifyAuthKey: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.mapResToState = this.mapResToState.bind(this)
@@ -50,39 +51,41 @@ export default class App extends Component {
       </div>
     )
   }
-  getHashParams() {
-    let hashParams = {},
-      e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1)
-
-    while (e = r.exec(q)) {
-      hashParams[e[1]] = decodeURIComponent(e[2])
-    }
-    return hashParams
-  }
-  generateRandomString(length) {
-    let text = '',
-        possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    for (var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-    return text
-  }
   componentDidMount() {
     const params = this.getHashParams(),
-      access_token = params.access_token,
-      state = params.state,
-      storedState = this.state.state
+          access_token = params.access_token,
+          state = params.state,
+          storedState = window.localStorage['spotifyAuthKey']
     if (access_token && (state == null || state !== storedState)) {
       console.log('There was an error during authentication :(')
     } else {
       return this.grabCurrentSong(access_token)
     }
   }
+  getHashParams() {
+    let hashParams = {},
+      e,
+      regQuery = /([^&;=]+)=?([^&;]*)/g,
+      query = window.location.hash.substring(1)
+    console.log(query)
+
+    while (e = regQuery.exec(query)) {
+      hashParams[e[1]] = decodeURIComponent(e[2])
+    }
+    console.log("hashParams", hashParams)
+    return hashParams
+  }
+  generateRandomString(length) {
+    let text = '',
+      possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return text
+  }
   grabCurrentSong(token) {
     if (token) {
-      axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
+      return axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
         .then(res => {
           console.log(res)
           this.setState({
@@ -97,16 +100,18 @@ export default class App extends Component {
   }
   handleLogin(evt) {
     evt.preventDefault()
-    const spotifyAuthKey = this.generateRandomString(16)
-    this.setState({
-      spotify_auth_key: spotifyAuthKey
-    })
+    const newKey = this.generateRandomString(16)
+    console.log("newKey", newKey)
+    //state is not being set here
+    window.localStorage['spotifyAuthKey'] = newKey
+    console.log("localStorage['spotifyAuthKey']", localStorage['spotifyAuthKey'])
     let url = 'https://accounts.spotify.com/authorize'
     url += '?response_type=token'
     url += '&client_id=' + encodeURIComponent(spotifyClientId)
     url += '&scope=' + encodeURIComponent('user-read-currently-playing')
     url += '&redirect_uri=' + encodeURIComponent(spotifyRedirectURI)
-    url += '&state=' + encodeURIComponent(this.state.spotifyAuthKey)
+    url += '&state=' + encodeURIComponent(localStorage['spotifyAuthKey'])
+    console.log("url", url)
     window.location = url
   }
   handleSubmit(evt) {

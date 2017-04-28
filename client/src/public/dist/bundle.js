@@ -24778,7 +24778,8 @@ var App = function (_Component) {
     _this.state = {
       data: {},
       isLoading: false,
-      isLoggedIn: false
+      isLoggedIn: false,
+      spotifyAuthKey: ''
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.mapResToState = _this.mapResToState.bind(_this);
@@ -24815,16 +24816,31 @@ var App = function (_Component) {
       );
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var params = this.getHashParams(),
+          access_token = params.access_token,
+          state = params.state,
+          storedState = window.localStorage['spotifyAuthKey'];
+      if (access_token && (state == null || state !== storedState)) {
+        console.log('There was an error during authentication :(');
+      } else {
+        return this.grabCurrentSong(access_token);
+      }
+    }
+  }, {
     key: 'getHashParams',
     value: function getHashParams() {
       var hashParams = {},
           e = void 0,
-          r = /([^&;=]+)=?([^&;]*)/g,
-          q = window.location.hash.substring(1);
+          regQuery = /([^&;=]+)=?([^&;]*)/g,
+          query = window.location.hash.substring(1);
+      console.log(query);
 
-      while (e = r.exec(q)) {
+      while (e = regQuery.exec(query)) {
         hashParams[e[1]] = decodeURIComponent(e[2]);
       }
+      console.log("hashParams", hashParams);
       return hashParams;
     }
   }, {
@@ -24838,25 +24854,12 @@ var App = function (_Component) {
       return text;
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var params = this.getHashParams(),
-          access_token = params.access_token,
-          state = params.state,
-          storedState = this.state.state;
-      if (access_token && (state == null || state !== storedState)) {
-        console.log('There was an error during authentication :(');
-      } else {
-        return this.grabCurrentSong(access_token);
-      }
-    }
-  }, {
     key: 'grabCurrentSong',
     value: function grabCurrentSong(token) {
       var _this2 = this;
 
       if (token) {
-        _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
+        return _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
           console.log(res);
           _this2.setState({
             isLoggedIn: true
@@ -24872,16 +24875,18 @@ var App = function (_Component) {
     key: 'handleLogin',
     value: function handleLogin(evt) {
       evt.preventDefault();
-      var spotifyAuthKey = this.generateRandomString(16);
-      this.setState({
-        spotify_auth_key: spotifyAuthKey
-      });
+      var newKey = this.generateRandomString(16);
+      console.log("newKey", newKey);
+      //state is not being set here
+      window.localStorage['spotifyAuthKey'] = newKey;
+      console.log("localStorage['spotifyAuthKey']", localStorage['spotifyAuthKey']);
       var url = 'https://accounts.spotify.com/authorize';
       url += '?response_type=token';
       url += '&client_id=' + encodeURIComponent(_secrets.spotifyClientId);
       url += '&scope=' + encodeURIComponent('user-read-currently-playing');
       url += '&redirect_uri=' + encodeURIComponent(_secrets.spotifyRedirectURI);
-      url += '&state=' + encodeURIComponent(this.state.spotifyAuthKey);
+      url += '&state=' + encodeURIComponent(localStorage['spotifyAuthKey']);
+      console.log("url", url);
       window.location = url;
     }
   }, {
