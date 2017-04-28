@@ -23931,10 +23931,6 @@ var _Footer = __webpack_require__(365);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Loading = __webpack_require__(891);
-
-var _Loading2 = _interopRequireDefault(_Loading);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23945,6 +23941,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 /* ----- IMPORT SUBCOMPONENTS ----- */
 
+
+// import Loading from './Loading.js'
 
 /* ----- COMPONENT ----- */
 
@@ -23992,8 +23990,8 @@ var App = function (_Component) {
     value: function parseSentences(arr) {
       return arr.map(function (obj) {
         return {
-          sentenceOffset: obj.text.beginOffset,
-          sentiment: obj.sentiment.score,
+          x: obj.text.beginOffset,
+          y: obj.sentiment.score,
           sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
         };
       });
@@ -24027,7 +24025,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-8' },
-            this.state.isLoading ? _react2.default.createElement(_Loading2.default, null) : _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
+            _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
           )
         ),
         _react2.default.createElement(_Footer2.default, null)
@@ -24329,7 +24327,7 @@ var Visualizer = function (_Component) {
     value: function docLength(arr) {
       var max = 0;
       arr.forEach(function (obj) {
-        if (obj.sentenceOffset > max) max = obj.sentenceOffset;
+        if (obj.x > max) max = obj.x;
       });
       return max;
     }
@@ -24371,32 +24369,29 @@ var Visualizer = function (_Component) {
               theme: V.VictoryTheme.material,
               width: 500,
               height: 300,
-              padding: 50,
+              padding: { top: 20, bottom: 50, left: 30, right: 30 },
               containerComponent: _react2.default.createElement(V.VictoryVoronoiContainer, null),
-              domain: this.domain()
+              domain: this.domain(),
+              animate: { duration: 500 }
             },
             _react2.default.createElement(V.VictoryAxis, null),
             _react2.default.createElement(V.VictoryAxis, { dependentAxis: true }),
             _react2.default.createElement(V.VictoryScatter, {
-              data: this.props.data.sentences && this.props.data.sentences,
-              x: 'sentenceOffset',
-              y: 'sentiment',
-              size: function size(datum, active) {
+              data: this.props.data.sentences && this.props.data.sentences
+              // x="sentenceOffset"
+              // y="sentiment"
+              , size: function size(datum, active) {
                 return active ? 5 : 3;
               }
-
             }),
             _react2.default.createElement(V.VictoryLine, {
-              data: this.props.data.sentences && this.props.data.sentences,
-              x: 'sentenceOffset',
-              y: 'sentiment',
-              labels: function labels(datum) {
-                return '\'' + datum.sentenceStub + '\' \n ' + datum.sentiment;
+              data: this.props.data.sentences && this.props.data.sentences
+              // x="sentenceOffset"
+              // y="sentiment"
+              , labels: function labels(datum) {
+                return '\'' + datum.sentenceStub + '\' \n ' + datum.y;
               },
               labelComponent: _react2.default.createElement(V.VictoryTooltip, null),
-              size: function size(datum, active) {
-                return active ? 5 : 3;
-              },
               interpolation: 'basis'
             })
           )
@@ -60037,56 +60032,6 @@ module.exports = {
   spotifyClientSecret: '56af518f0b244e0bb1df8e2e27fde838',
   googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU'
 };
-
-/***/ }),
-/* 891 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Loading = function (_Component) {
-  _inherits(Loading, _Component);
-
-  function Loading() {
-    _classCallCheck(this, Loading);
-
-    return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
-  }
-
-  _createClass(Loading, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "loader" },
-        "Loading..."
-      );
-    }
-  }]);
-
-  return Loading;
-}(_react.Component);
-
-exports.default = Loading;
 
 /***/ })
 /******/ ]);

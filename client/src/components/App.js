@@ -8,7 +8,7 @@ import NavBar from './NavBar.js'
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
 import Footer from './Footer.js'
-import Loading from './Loading.js'
+// import Loading from './Loading.js'
 
 /* ----- COMPONENT ----- */
 
@@ -44,8 +44,8 @@ export default class App extends Component {
   parseSentences(arr) {
     return arr.map(obj => {
       return {
-        sentenceOffset: obj.text.beginOffset,
-        sentiment: obj.sentiment.score,
+        x: obj.text.beginOffset,
+        y: obj.sentiment.score,
         sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
       }
     })
@@ -68,10 +68,7 @@ export default class App extends Component {
             <Corpus handleSubmit={this.handleSubmit} />
           </div>
           <div className="col-md-8">
-            {this.state.isLoading ?
-              <Loading /> :
-              <Visualizer data={this.state.data} />
-            }
+            <Visualizer data={this.state.data} />
           </div>
         </div>
         <Footer />
