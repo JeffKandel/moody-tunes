@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Router, Route, hashHistory, IndexRedirect, IndexRoute } from 'react-router';
 
 /* ----- IMPORT COMPONENTS ----- */
 import App from './components/App.js'
