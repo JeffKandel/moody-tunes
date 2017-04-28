@@ -96,12 +96,19 @@ nav {
 }
 
 #corpusBlock {
-	background-color: $corpus-block-color
+	background-color: $corpus-block-color;
+	padding: 20px;
+	h3 {
+		margin: 0 0 10px 0
+	}
 }
 
 #visualizerBlock {
 	background-color: $vis-block-color;
-	padding-bottom: 20px
+	padding: 20px;
+	h3 {
+		margin: 0 0 10px 0
+	}
 }
 
 .loader {

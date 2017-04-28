@@ -26,9 +26,9 @@ export default class Visualizer extends Component {
   }
   render() {
     return (
-      <div className="flexcontainer-vertical">
+      <div className="flexcontainer-vertical" id="visualizerBlock">
         <div>
-          <h2 className="center text-center text-bottom">sentimentagram</h2>
+          <h3 className="center text-center text-bottom">sentimentagram</h3>
         </div>
         <div>
           <V.VictoryChart

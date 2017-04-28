@@ -64,10 +64,10 @@ export default class App extends Component {
       <div className="flexcontainer-vertical" id="appBlock">
         <NavBar />
         <div id="bodyBlock" className="row">
-          <div id="corpusBlock" className="col-md-4">
+          <div className="col-md-4">
             <Corpus handleSubmit={this.handleSubmit} />
           </div>
-          <div id="visualizerBlock" className="col-md-8">
+          <div className="col-md-8">
             {this.state.isLoading ?
               <Loading /> :
               <Visualizer data={this.state.data} />
