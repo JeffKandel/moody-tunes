@@ -53,6 +53,10 @@ $active-link-color: #1b3a6b;
 $subnav-color: white;
 $loader-color: rgba(0,0,0,.1);
 
+html, body {
+	height: 100%;
+}
+
 .flexcontainer-horizontal {
   display: -webkit-flex;
   display: flex;
@@ -120,9 +124,10 @@ nav {
 .footer {
 	background-color: $nav-footer-color;
 	padding: 10px;
-	position: relative;
-	color: white;
-	display: inline-flex;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
 	flex-grow: 1;
 }
 

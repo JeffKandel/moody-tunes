@@ -1,5 +1,5 @@
 {
-  "name": "tune-sentimenter",
+  "name": "sentimentagram",
   "version": "1.0.0",
   "description": "A web app for charting the mood of your tunes",
   "main": "index.js",
