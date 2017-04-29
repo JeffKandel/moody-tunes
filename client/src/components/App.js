@@ -5,10 +5,8 @@ import axios from 'axios'
 import { googleKey, spotifyClientId, spotifyRedirectURI } from '../../../secrets.js'
 
 /* ----- IMPORT SUBCOMPONENTS ----- */
-import NavBar from './NavBar.js'
 import Corpus from './Corpus'
 import Visualizer from './Visualizer'
-import Footer from './Footer.js'
 import LoginSpotify from './LoginSpotify.js'
 
 /* ----- COMPONENT ----- */
@@ -22,7 +20,8 @@ export default class App extends Component {
       isLoggedIntoSpotify: false,
       currSong: '',
       currArtist: '',
-      corpus: ''
+      corpus: '',
+      access_token: ''
     }
     /* ----- SPOTIFY LOGIN METHODS ----- */
     this.handleSpotifyLogin = this.handleSpotifyLogin.bind(this)
@@ -42,16 +41,16 @@ export default class App extends Component {
   render() {
     return (
       <div className="flexcontainer-vertical" id="appBlock">
-        <NavBar />
-
         <div id="bodyBlock" className="row">
           <div className="col-md-4">
             {this.state.isLoggedIntoSpotify ?
               <Corpus
-                handleSubmit={this.handleSubmit}
+                generateGram={this.handleSubmit}
+                grabNewSong={this.grabCurrentSong}
                 corpus={this.state.corpus}
                 currSong={this.state.currSong}
                 currArtist={this.state.currArtist}
+                access={this.state.access_token}
               />
               :
               <LoginSpotify handleSpotifyLogin={this.handleSpotifyLogin} />
@@ -61,7 +60,6 @@ export default class App extends Component {
             <Visualizer data={this.state.data} />
           </div>
         </div>
-        <Footer />
       </div>
     )
   }
@@ -81,7 +79,6 @@ export default class App extends Component {
       e,
       regQuery = /([^&;=]+)=?([^&;]*)/g,
       query = window.location.hash.substring(1)
-
     while (e = regQuery.exec(query)) {
       hashParams[e[1]] = decodeURIComponent(e[2])
     }
@@ -95,32 +92,28 @@ export default class App extends Component {
     }
     return text
   }
-  grabCurrentSong(token) {
-    if (token) {
-      return axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
-        .then(res => {
-          this.setState({
-            isLoggedIntoSpotify: true,
-            currSong: res.data.item.name,
-            currArtist: res.data.item.artists[0].name //TODO: write util converting an artist object with multiple artists into a flat array separated by spaces
-          })
-          this.grabSongLyrics()
+  grabCurrentSong() {
+    const args = [].slice.call(arguments)
+    const token = args.length > 0 ? args[0] : this.state.access_token
+    return axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(res => {
+        this.setState({
+          isLoggedIntoSpotify: true,
+          currSong: res.data.item.name,
+          currArtist: res.data.item.artists[0].name
         })
-    } else {
-      this.setState({
-        isLoggedIntoSpotify: false
+        this.grabSongLyrics()
       })
-    }
   }
   grabSongLyrics() {
     return axios.get(`/api/lyrics/${encodeURIComponent(this.state.currArtist)}/${encodeURIComponent(this.state.currSong)}`)
-    .then(res => {
-      this.parseCorpus(res.data.lyric)
-    })
+      .then(res => {
+        this.parseCorpus(res.data.lyric)
+      })
   }
   parseCorpus(corpus) {
     corpus = corpus.replace(/\n\n/g, '\n')
-          .replace(/\n/g, '.\n')
+      .replace(/\n/g, '.\n')
     this.setState({
       corpus: corpus
     })

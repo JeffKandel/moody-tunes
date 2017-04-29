@@ -26941,10 +26941,6 @@ var _axios2 = _interopRequireDefault(_axios);
 
 var _secrets = __webpack_require__(383);
 
-var _NavBar = __webpack_require__(380);
-
-var _NavBar2 = _interopRequireDefault(_NavBar);
-
 var _Corpus = __webpack_require__(376);
 
 var _Corpus2 = _interopRequireDefault(_Corpus);
@@ -26952,10 +26948,6 @@ var _Corpus2 = _interopRequireDefault(_Corpus);
 var _Visualizer = __webpack_require__(381);
 
 var _Visualizer2 = _interopRequireDefault(_Visualizer);
-
-var _Footer = __webpack_require__(377);
-
-var _Footer2 = _interopRequireDefault(_Footer);
 
 var _LoginSpotify = __webpack_require__(379);
 
@@ -26989,7 +26981,8 @@ var App = function (_Component) {
       isLoggedIntoSpotify: false,
       currSong: '',
       currArtist: '',
-      corpus: ''
+      corpus: '',
+      access_token: ''
     };
     /* ----- SPOTIFY LOGIN METHODS ----- */
     _this.handleSpotifyLogin = _this.handleSpotifyLogin.bind(_this);
@@ -27014,7 +27007,6 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'flexcontainer-vertical', id: 'appBlock' },
-        _react2.default.createElement(_NavBar2.default, null),
         _react2.default.createElement(
           'div',
           { id: 'bodyBlock', className: 'row' },
@@ -27022,10 +27014,12 @@ var App = function (_Component) {
             'div',
             { className: 'col-md-4' },
             this.state.isLoggedIntoSpotify ? _react2.default.createElement(_Corpus2.default, {
-              handleSubmit: this.handleSubmit,
+              generateGram: this.handleSubmit,
+              grabNewSong: this.grabCurrentSong,
               corpus: this.state.corpus,
               currSong: this.state.currSong,
-              currArtist: this.state.currArtist
+              currArtist: this.state.currArtist,
+              access: this.state.access_token
             }) : _react2.default.createElement(_LoginSpotify2.default, { handleSpotifyLogin: this.handleSpotifyLogin })
           ),
           _react2.default.createElement(
@@ -27033,8 +27027,7 @@ var App = function (_Component) {
             { className: 'col-md-8' },
             _react2.default.createElement(_Visualizer2.default, { data: this.state.data })
           )
-        ),
-        _react2.default.createElement(_Footer2.default, null)
+        )
       );
     }
   }, {
@@ -27057,7 +27050,6 @@ var App = function (_Component) {
           e = void 0,
           regQuery = /([^&;=]+)=?([^&;]*)/g,
           query = window.location.hash.substring(1);
-
       while (e = regQuery.exec(query)) {
         hashParams[e[1]] = decodeURIComponent(e[2]);
       }
@@ -27075,23 +27067,19 @@ var App = function (_Component) {
     }
   }, {
     key: 'grabCurrentSong',
-    value: function grabCurrentSong(token) {
+    value: function grabCurrentSong() {
       var _this2 = this;
 
-      if (token) {
-        return _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
-          _this2.setState({
-            isLoggedIntoSpotify: true,
-            currSong: res.data.item.name,
-            currArtist: res.data.item.artists[0].name //TODO: write util converting an artist object with multiple artists into a flat array separated by spaces
-          });
-          _this2.grabSongLyrics();
+      var args = [].slice.call(arguments);
+      var token = args.length > 0 ? args[0] : this.state.access_token;
+      return _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
+        _this2.setState({
+          isLoggedIntoSpotify: true,
+          currSong: res.data.item.name,
+          currArtist: res.data.item.artists[0].name
         });
-      } else {
-        this.setState({
-          isLoggedIntoSpotify: false
-        });
-      }
+        _this2.grabSongLyrics();
+      });
     }
   }, {
     key: 'grabSongLyrics',
@@ -28151,9 +28139,7 @@ var Corpus = function (_Component) {
         ),
         _react2.default.createElement(
           "form",
-          {
-            onSubmit: this.props.handleSubmit
-          },
+          null,
           _react2.default.createElement("textarea", {
             name: "corpus",
             value: this.props.corpus && this.props.corpus
@@ -28164,9 +28150,18 @@ var Corpus = function (_Component) {
             _react2.default.createElement(
               "button",
               {
-                className: "btn btn-success"
+                className: "btn btn-success",
+                onClick: this.props.generateGram
               },
               "Generate sentimentagram"
+            ),
+            _react2.default.createElement(
+              "button",
+              {
+                className: "btn btn-success",
+                onClick: this.props.grabNewSong
+              },
+              "Grab my new song"
             )
           )
         )
@@ -28515,6 +28510,14 @@ var _App = __webpack_require__(354);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _NavBar = __webpack_require__(380);
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
+var _Footer = __webpack_require__(377);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 __webpack_require__(357);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -28523,7 +28526,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 /* ----- IMPORT COMPONENTS ----- */
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(
+  'div',
+  null,
+  _react2.default.createElement(_NavBar2.default, null),
+  _react2.default.createElement(_App2.default, null),
+  _react2.default.createElement(_Footer2.default, null)
+), document.getElementById('root'));
 
 //load main css
 

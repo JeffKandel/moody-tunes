@@ -10,9 +10,7 @@ export default class Corpus extends Component {
         <h3>
           {this.props.currSong} by {this.props.currArtist}
         </h3>
-        <form
-          onSubmit={this.props.handleSubmit}
-        >
+        <form>
           <textarea
             name="corpus"
             value={this.props.corpus && this.props.corpus}
@@ -20,8 +18,15 @@ export default class Corpus extends Component {
           <div className="buttonContainer">
             <button
               className="btn btn-success"
+              onClick={this.props.generateGram}
             >
               Generate sentimentagram
+            </button>
+            <button
+              className="btn btn-success"
+              onClick={this.props.grabNewSong}
+            >
+              Grab my new song
             </button>
           </div>
         </form>
