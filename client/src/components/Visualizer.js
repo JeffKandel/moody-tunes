@@ -27,12 +27,12 @@ class Visualizer extends Component {
   render() {
     return (
       <div className="flexcontainer-vertical" id="visualizerBlock">
-        <div className="text-center">
+        <div className="text-center" id="vizTitle">
           <h3>sentimentagram</h3>
           <p>Here, the sentiment of the lyrics of your song is plotted over progression through the text.</p>
           <p>Hover over a dot to see its sentiment score and a snippet of the line that generated it.</p>
         </div>
-        <div>
+        <div id="vizChart">
           <VictoryChart
             domainPadding={5}
             theme={VictoryTheme.material}

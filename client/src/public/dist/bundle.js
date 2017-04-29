@@ -28682,9 +28682,9 @@ var Corpus = function (_Component) {
         'div',
         { id: 'corpusBlock' },
         _react2.default.createElement(
-          'h3',
+          'h4',
           null,
-          'You\'re listening to'
+          'you\'re listening to:'
         ),
         _react2.default.createElement(
           'h3',
@@ -28813,24 +28813,20 @@ var LoginSpotify = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'login' },
+        { id: 'loginBlock', className: 'flexcontainer-vertical' },
         _react2.default.createElement(
-          'div',
+          'h3',
           null,
-          _react2.default.createElement(
-            'h3',
-            { className: 'text-center' },
-            'Start'
-          )
+          'start'
         ),
         _react2.default.createElement(
           'div',
-          { className: 'button-container center' },
+          { className: 'button-container flexcontainer-vertical', id: 'startButton' },
           _react2.default.createElement(
             'button',
             {
               id: 'login-button',
-              className: 'btn btn-primary',
+              className: 'btn btn-success',
               onClick: this.handleSpotifyLogin
             },
             'Log in with Spotify'
@@ -28944,7 +28940,7 @@ var Visualizer = function (_Component) {
         { className: 'flexcontainer-vertical', id: 'visualizerBlock' },
         _react2.default.createElement(
           'div',
-          { className: 'text-center' },
+          { className: 'text-center', id: 'vizTitle' },
           _react2.default.createElement(
             'h3',
             null,
@@ -28963,7 +28959,7 @@ var Visualizer = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
-          null,
+          { id: 'vizChart' },
           _react2.default.createElement(
             _victory.VictoryChart,
             {
@@ -29248,7 +29244,7 @@ exports = module.exports = __webpack_require__(393)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n#rootBox {\n  display: flex;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  align-items: space-between; }\n\n#appBlock {\n  height: 100%;\n  width: 100%;\n  display: inline-flex; }\n\nnav {\n  padding: 5px 5px 10px 5px;\n  background-color: #9E0000;\n  color: white;\n  display: inline-flex; }\n  nav h4 {\n    height: 100%; }\n\n.center {\n  align-self: center; }\n\n#corpusBlock {\n  background-color: white;\n  padding: 20px; }\n  #corpusBlock h3 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 15px; }\n\n#visualizerBlock {\n  background-color: white;\n  padding: 10px; }\n  #visualizerBlock h3 {\n    margin: 0 0 10px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n#footerBlock {\n  background-color: #9E0000;\n  color: white;\n  padding: 5px;\n  display: inline-flex;\n  flex-grow: 1; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n#rootBox {\n  display: flex;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: stretch; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  align-items: space-between; }\n\n#appBlock {\n  height: 100%;\n  width: 100%;\n  display: inline-flex; }\n\nnav {\n  padding: 5px 5px 10px 5px;\n  background-color: #9E0000;\n  color: white;\n  display: inline-flex; }\n  nav h4 {\n    height: 100%; }\n\n#corpusBlock {\n  background-color: white;\n  padding: 40px 20px; }\n  #corpusBlock h3, #corpusBlock h4 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 15px; }\n\n#loginBlock {\n  padding: 40px 20px; }\n  #loginBlock h3 {\n    margin: 0 0 30px 0;\n    text-align: center; }\n\n#visualizerBlock {\n  background-color: white;\n  padding: 40px 20px; }\n  #visualizerBlock #vizTitle h3 {\n    margin: 0 0 30px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n#footerBlock {\n  background-color: #9E0000;\n  color: white;\n  padding: 5px;\n  display: inline-flex;\n  flex-grow: 1; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 

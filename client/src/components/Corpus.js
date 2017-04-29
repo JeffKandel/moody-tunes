@@ -8,9 +8,9 @@ class Corpus extends Component {
   render() {
     return (
       <div id="corpusBlock">
-        <h3>
-          You're listening to
-        </h3>
+        <h4>
+          you're listening to:
+        </h4>
         <h3>
           {this.props.currSong ? this.props.currSong : 'TBD'} by {this.props.currArtist ? this.props.currArtist : 'TBD'}
         </h3>

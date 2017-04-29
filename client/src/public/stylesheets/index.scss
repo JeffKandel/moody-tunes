@@ -52,6 +52,7 @@ $vis-block-color: white;
 $active-link-color: #1b3a6b;
 $subnav-color: white;
 $loader-color: rgba(0,0,0,.1);
+$interior-padding: 40px 20px;
 
 html, body {
 	height: 100%;
@@ -72,7 +73,7 @@ html, body {
 	-webkit-flex-direction: row;
   flex-direction: row;
 	justify-content: space-between;
-	align-items: center
+	align-items: stretch
 }
 
 .flexcontainer-vertical {
@@ -99,14 +100,10 @@ nav {
 	}
 }
 
-.center {
-	align-self: center
-}
-
 #corpusBlock {
 	background-color: $corpus-block-color;
-	padding: 20px;
-	h3 {
+	padding: $interior-padding;
+	h3, h4 {
 		margin: 0 0 10px 0
 	}
 	textarea {
@@ -123,11 +120,21 @@ nav {
 	}
 }
 
+#loginBlock {
+	padding: $interior-padding;
+	h3 {
+		margin: 0 0 30px 0;
+		text-align: center
+	}
+}
+
 #visualizerBlock {
 	background-color: $vis-block-color;
-	padding: 10px;
-	h3 {
-		margin: 0 0 10px 0
+	padding: $interior-padding;
+	#vizTitle {
+		h3 {
+			margin: 0 0 30px 0
+		}
 	}
 }
 
