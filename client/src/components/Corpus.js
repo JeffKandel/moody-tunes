@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Corpus extends Component {
   constructor() {
     super()
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.generateGram = this.generateGram.bind(this)
   }
   render() {
     return (
@@ -22,7 +22,7 @@ class Corpus extends Component {
           <div className="buttonContainer">
             <button
               className="btn btn-success"
-              onClick={this.handleSubmit}
+              onClick={this.generateGram}
             >
               Generate sentimentagram
             </button>
@@ -37,7 +37,7 @@ class Corpus extends Component {
       </div>
     )
   }
-  handleSubmit(evt) {
+  generateGram(evt) {
     evt.preventDefault()
     const postBody = {
       "document": {
@@ -67,7 +67,8 @@ const mapStateToProps = (store, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  grabCurrentSong: () => {
+  grabCurrentSong: (evt) => {
+    evt.preventDefault()
     dispatch(grabCurrSong(ownProps.access))
   },
   queryCorpus: (body) => {

@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import axios from 'axios'
 
 import { googleKey } from '../../../secrets.js'
@@ -95,12 +94,19 @@ export const grabLyrics = () => (dispatch, getState) => {
     })
 }
 
-export const grabCurrSong = token => dispatch => {
-  console.log(token)
+export const grabCurrSong = token => (dispatch, getState) => {
+  console.log("Got to grabCurrSong in reducer with token: ", token)
   return axios.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } })
     .then(res => {
-      dispatch(setCurr(res.data.item.artists[0].name, res.data.item.name))
-      dispatch(grabLyrics())
+      console.log('currplaying api response', res)
+      const apiArtist = res.data.item.artists[0].name,
+            apiSong = res.data.item.name
+      if (apiArtist !== getState().currArtist || apiSong !== getState().currSong) {
+        dispatch(setCurr(apiArtist, apiSong))
+        dispatch(grabLyrics())
+      } else {
+        console.log('No new song')
+      }
     })
 }
 

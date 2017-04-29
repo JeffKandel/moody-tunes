@@ -9080,8 +9080,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passCorpusToChart = exports.grabCurrSong = exports.grabLyrics = exports.storeToken = undefined;
 
-var _redux = __webpack_require__(121);
-
 var _axios = __webpack_require__(368);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -9190,11 +9188,18 @@ var grabLyrics = exports.grabLyrics = function grabLyrics() {
 };
 
 var grabCurrSong = exports.grabCurrSong = function grabCurrSong(token) {
-  return function (dispatch) {
-    console.log(token);
+  return function (dispatch, getState) {
+    console.log("Got to grabCurrSong in reducer with token: ", token);
     return _axios2.default.get('https://api.spotify.com/v1/me/player/currently-playing', { headers: { 'Authorization': 'Bearer ' + token } }).then(function (res) {
-      dispatch(setCurr(res.data.item.artists[0].name, res.data.item.name));
-      dispatch(grabLyrics());
+      console.log('currplaying api response', res);
+      var apiArtist = res.data.item.artists[0].name,
+          apiSong = res.data.item.name;
+      if (apiArtist !== getState().currArtist || apiSong !== getState().currSong) {
+        dispatch(setCurr(apiArtist, apiSong));
+        dispatch(grabLyrics());
+      } else {
+        console.log('No new song');
+      }
     });
   };
 };
@@ -28661,7 +28666,7 @@ var Corpus = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Corpus.__proto__ || Object.getPrototypeOf(Corpus)).call(this));
 
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.generateGram = _this.generateGram.bind(_this);
     return _this;
   }
 
@@ -28697,7 +28702,7 @@ var Corpus = function (_Component) {
               "button",
               {
                 className: "btn btn-success",
-                onClick: this.handleSubmit
+                onClick: this.generateGram
               },
               "Generate sentimentagram"
             ),
@@ -28714,8 +28719,8 @@ var Corpus = function (_Component) {
       );
     }
   }, {
-    key: "handleSubmit",
-    value: function handleSubmit(evt) {
+    key: "generateGram",
+    value: function generateGram(evt) {
       evt.preventDefault();
       var postBody = {
         "document": {
@@ -28746,7 +28751,8 @@ var mapStateToProps = function mapStateToProps(store, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
-    grabCurrentSong: function grabCurrentSong() {
+    grabCurrentSong: function grabCurrentSong(evt) {
+      evt.preventDefault();
       dispatch((0, _reducers.grabCurrSong)(ownProps.access));
     },
     queryCorpus: function queryCorpus(body) {
