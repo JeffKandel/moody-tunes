@@ -28,10 +28,10 @@ class Visualizer extends Component {
     return (
       <div className="flexcontainer-vertical z-depth-2" id="vizBlock">
         <div className="text-center" id="vizTitle">
-          <h6>this is its:</h6>
+          <h6>this is {  }</h6>
           <h4>sentimentagram</h4>
-          <p>Here, the sentiment of the lyrics of your song is plotted over progression through the text.</p>
-          <p>Hover over a dot to see its sentiment score and a snippet of the line that generated it.</p>
+          <h6>Here, the sentiment of each line in your song is plotted over time.</h6>
+          <h6 style={{"margin-top": 5}}>Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.</h6>
         </div>
         <div id="vizChart">
           <VictoryChart
@@ -85,6 +85,7 @@ class Visualizer extends Component {
                   style={{
                     fontSize: 8,
                     padding: 5,
+                    fontColor: 'white'
                   }}
                   flyoutStyle={{
                     stroke: 'none',
@@ -107,6 +108,9 @@ import { connect } from 'react-redux'
 
 /* ----- CONTAINER ----- */
 
-const mapStateToProps = (store, ownProps) => ({ data: store.data })
+const mapStateToProps = (store, ownProps) => ({
+  currSong: store.currSong,
+  data: store.data
+})
 
 export default connect(mapStateToProps)(Visualizer)

@@ -27708,7 +27708,7 @@ var NavBar = function (_Component) {
         _react2.default.createElement(
           "h6",
           null,
-          "tune / mood"
+          "TUNE / MOOD"
         ),
         _react2.default.createElement(
           "h6",
@@ -28944,7 +28944,7 @@ var Visualizer = function (_Component) {
           _react2.default.createElement(
             'h6',
             null,
-            'this is its:'
+            'this is '
           ),
           _react2.default.createElement(
             'h4',
@@ -28952,14 +28952,14 @@ var Visualizer = function (_Component) {
             'sentimentagram'
           ),
           _react2.default.createElement(
-            'p',
+            'h6',
             null,
-            'Here, the sentiment of the lyrics of your song is plotted over progression through the text.'
+            'Here, the sentiment of each line in your song is plotted over time.'
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            'Hover over a dot to see its sentiment score and a snippet of the line that generated it.'
+            'h6',
+            { style: { "margin-top": 5 } },
+            'Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.'
           )
         ),
         _react2.default.createElement(
@@ -29020,7 +29020,8 @@ var Visualizer = function (_Component) {
                 cornerRadius: 1,
                 style: {
                   fontSize: 8,
-                  padding: 5
+                  padding: 5,
+                  fontColor: 'white'
                 },
                 flyoutStyle: {
                   stroke: 'none',
@@ -29043,7 +29044,10 @@ var Visualizer = function (_Component) {
 /* ----- CONTAINER ----- */
 
 var mapStateToProps = function mapStateToProps(store, ownProps) {
-  return { data: store.data };
+  return {
+    currSong: store.currSong,
+    data: store.data
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Visualizer);
