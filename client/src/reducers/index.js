@@ -15,8 +15,8 @@ const SET_CHART_DATA = 'SET_CHART_DATA'
 
 const setCurr = (artist, song) => {
   song = song.indexOf(' - ') > -1 ?
-         song.slice(0, song.indexOf(' - ')) :
-         song
+    song.slice(0, song.indexOf(' - ')) :
+    song
   return {
     type: SET_CURRENT,
     artist,
@@ -40,7 +40,7 @@ const parseSentences = arr => {
     return {
       x: obj.text.beginOffset,
       y: obj.sentiment.score,
-      sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
+      sentence: obj.text.content ? obj.text.content : 'No text'
     }
   })
 }
@@ -114,7 +114,7 @@ export const grabCurrSong = token => (dispatch, getState) => {
     .then(res => {
       console.log('currplaying api response', res)
       const apiArtist = res.data.item.artists[0].name,
-            apiSong = res.data.item.name
+        apiSong = res.data.item.name
       if (apiArtist !== getState().currArtist || apiSong !== getState().currSong) {
         dispatch(setCurr(apiArtist, apiSong))
         dispatch(grabLyrics())

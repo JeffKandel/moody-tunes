@@ -38,14 +38,23 @@ class Visualizer extends Component {
             theme={VictoryTheme.material}
             width={400}
             height={200}
-            padding={{ top: 20, bottom: 50, left: 30, right: 30 }}
+            padding={{ top: 20, bottom: 20, left: 50, right: 50 }}
             containerComponent={<VictoryVoronoiContainer />}
             domain={this.domain()}
             animate={{ duration: 500 }}
           >
-            <VictoryAxis />
+            <VictoryAxis
+              label="Progression"
+              style={{
+                axis: { stroke: "#756f6a" },
+                axisLabel: { fontSize: 10, padding: 60 },
+                ticks: { stroke: "grey" },
+                tickLabels: { fontSize: 10, padding: 5 }
+              }}
+            />
             <VictoryAxis
               dependentAxis
+              label="Sentiment"
               tickFormat={tick => {
                 const yAxis = this.domain().y
                 if (yAxis.indexOf(tick) > -1) {
@@ -54,6 +63,12 @@ class Visualizer extends Component {
                   return tick
                 }
               }}
+              style={{
+                axis: { stroke: "#756f6a" },
+                axisLabel: { fontSize: 10, padding: 40 },
+                ticks: { stroke: "grey" },
+                tickLabels: { fontSize: 10, padding: 5 }
+              }}
             />
             <VictoryScatter
               data={this.props.data.sentences && this.props.data.sentences}
@@ -61,14 +76,18 @@ class Visualizer extends Component {
             />
             <VictoryLine
               data={this.props.data.sentences && this.props.data.sentences}
-              labels={datum => `'${datum.sentenceStub}' \n ${datum.y}`}
+              labels={datum => `'${datum.sentence}' \n ${datum.y}`}
               labelComponent={
                 <VictoryTooltip
-                  // flyoutComponent={
-                  //   <Flyout
-                  //     style={}
-                  //   />
-                  // }
+                  cornerRadius={1}
+                  style={{
+                    fontSize: 8,
+                    padding: 5,
+                  }}
+                  flyoutStyle={{
+                    stroke: 'none',
+                    fill: '#D3767F'
+                  }}
                 />
               }
               interpolation="basis"

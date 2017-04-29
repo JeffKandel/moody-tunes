@@ -9123,7 +9123,7 @@ var parseSentences = function parseSentences(arr) {
     return {
       x: obj.text.beginOffset,
       y: obj.sentiment.score,
-      sentenceStub: obj.text.content ? obj.text.content.slice(0, 15) + '...' : 'No text'
+      sentence: obj.text.content ? obj.text.content : 'No text'
     };
   });
 };
@@ -27710,14 +27710,14 @@ var NavBar = function (_Component) {
         "nav",
         { className: "flexcontainer-horizontal" },
         _react2.default.createElement(
-          "h2",
+          "h4",
           { className: "left" },
-          "Tune / Mood"
+          "tune / mood"
         ),
         _react2.default.createElement(
           "h4",
-          { className: "center text-align-middle subnav" },
-          "Visualizing the emotional arc of your current Spotify jam"
+          { className: "right text-align-middle subnav" },
+          "visualizing the emotional arc of your current Spotify jam"
         )
       );
     }
@@ -28819,13 +28819,26 @@ var LoginSpotify = function (_Component) {
         'div',
         { className: 'login' },
         _react2.default.createElement(
-          'button',
-          {
-            id: 'login-button',
-            className: 'btn btn-primary',
-            onClick: this.handleSpotifyLogin
-          },
-          'Log in with Spotify'
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            { className: 'text-center' },
+            'Start'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'button-container center' },
+          _react2.default.createElement(
+            'button',
+            {
+              id: 'login-button',
+              className: 'btn btn-primary',
+              onClick: this.handleSpotifyLogin
+            },
+            'Log in with Spotify'
+          )
         )
       );
     }
@@ -28962,14 +28975,23 @@ var Visualizer = function (_Component) {
               theme: _victory.VictoryTheme.material,
               width: 400,
               height: 200,
-              padding: { top: 20, bottom: 50, left: 30, right: 30 },
+              padding: { top: 20, bottom: 20, left: 50, right: 50 },
               containerComponent: _react2.default.createElement(_victory.VictoryVoronoiContainer, null),
               domain: this.domain(),
               animate: { duration: 500 }
             },
-            _react2.default.createElement(_victory.VictoryAxis, null),
+            _react2.default.createElement(_victory.VictoryAxis, {
+              label: 'Progression',
+              style: {
+                axis: { stroke: "#756f6a" },
+                axisLabel: { fontSize: 10, padding: 60 },
+                ticks: { stroke: "grey" },
+                tickLabels: { fontSize: 10, padding: 5 }
+              }
+            }),
             _react2.default.createElement(_victory.VictoryAxis, {
               dependentAxis: true,
+              label: 'Sentiment',
               tickFormat: function tickFormat(tick) {
                 var yAxis = _this2.domain().y;
                 if (yAxis.indexOf(tick) > -1) {
@@ -28977,6 +28999,12 @@ var Visualizer = function (_Component) {
                 } else {
                   return tick;
                 }
+              },
+              style: {
+                axis: { stroke: "#756f6a" },
+                axisLabel: { fontSize: 10, padding: 40 },
+                ticks: { stroke: "grey" },
+                tickLabels: { fontSize: 10, padding: 5 }
               }
             }),
             _react2.default.createElement(_victory.VictoryScatter, {
@@ -28988,15 +29016,19 @@ var Visualizer = function (_Component) {
             _react2.default.createElement(_victory.VictoryLine, {
               data: this.props.data.sentences && this.props.data.sentences,
               labels: function labels(datum) {
-                return '\'' + datum.sentenceStub + '\' \n ' + datum.y;
+                return '\'' + datum.sentence + '\' \n ' + datum.y;
               },
-              labelComponent: _react2.default.createElement(_victory.VictoryTooltip
-              // flyoutComponent={
-              //   <Flyout
-              //     style={}
-              //   />
-              // }
-              , null),
+              labelComponent: _react2.default.createElement(_victory.VictoryTooltip, {
+                cornerRadius: 1,
+                style: {
+                  fontSize: 8,
+                  padding: 5
+                },
+                flyoutStyle: {
+                  stroke: 'none',
+                  fill: '#D3767F'
+                }
+              }),
               interpolation: 'basis'
             })
           )
@@ -29220,7 +29252,7 @@ exports = module.exports = __webpack_require__(393)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 10px;\n  display: block;\n  background-color: #d64660;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  margin-left: auto;\n  padding: 15px 0; }\n\n#corpusBlock {\n  background-color: white;\n  padding: 20px; }\n  #corpusBlock h3 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 20px; }\n\n#visualizerBlock {\n  background-color: white;\n  padding: 20px; }\n  #visualizerBlock h3 {\n    margin: 0 0 10px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n.footer {\n  background-color: #d64660;\n  padding: 10px;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  flex-grow: 1; }\n\n.subnav {\n  color: white; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column; }\n\n#appBlock {\n  height: 100%;\n  display: flex; }\n\nnav {\n  padding: 5px;\n  display: block;\n  background-color: #9E0000;\n  color: white;\n  display: inline-flex;\n  flex-grow: 1; }\n\n.left {\n  -webkit-align-self: flex-start;\n  align-self: flex-start; }\n\n.center {\n  align-self: center; }\n\n.right {\n  -webkit-align-self: flex-start;\n  align-self: flex-start;\n  margin-left: auto; }\n\n#corpusBlock {\n  background-color: white;\n  padding: 20px; }\n  #corpusBlock h3 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 15px; }\n\n#visualizerBlock {\n  background-color: white;\n  padding: 20px; }\n  #visualizerBlock h3 {\n    margin: 0 0 10px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n.footer {\n  background-color: #9E0000;\n  color: white;\n  padding: 5px;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  flex-grow: 1; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 

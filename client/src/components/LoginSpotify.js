@@ -11,13 +11,18 @@ export default class LoginSpotify extends Component {
   render() {
     return (
       <div className="login">
-        <button
-          id="login-button"
-          className="btn btn-primary"
-          onClick={this.handleSpotifyLogin}
-        >
-          Log in with Spotify
+        <div>
+          <h3 className="text-center">Start</h3>
+        </div>
+        <div className="button-container center">
+          <button
+            id="login-button"
+            className="btn btn-primary"
+            onClick={this.handleSpotifyLogin}
+          >
+            Log in with Spotify
         </button>
+        </div>
       </div>
     )
   }
