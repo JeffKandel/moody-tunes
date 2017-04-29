@@ -6,8 +6,8 @@ export default class NavBar extends Component {
   render() {
     return (
       <nav className="flexcontainer-horizontal">
-        <h4>tune / mood</h4>
-        <h4>visualizing the emotional arc of your current Spotify jam</h4>
+        <h6>tune / mood</h6>
+        <h6>visualizing the emotional arc of your current Spotify jam</h6>
       </nav>
     )
   }

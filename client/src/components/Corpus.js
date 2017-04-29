@@ -8,12 +8,12 @@ class Corpus extends Component {
   render() {
     return (
       <div id="corpusBlock">
-        <h4>
+        <h6>
           you're listening to:
-        </h4>
-        <h3>
+        </h6>
+        <h4>
           {this.props.currSong ? this.props.currSong : 'TBD'} by {this.props.currArtist ? this.props.currArtist : 'TBD'}
-        </h3>
+        </h4>
         <div className="buttonContainer">
           <button
             className="btn btn-success"
