@@ -9098,11 +9098,18 @@ var SET_CHART_DATA = 'SET_CHART_DATA';
 /* ------------   ACTION CREATORS     ------------------ */
 
 var setCurr = function setCurr(artist, song) {
-  return { type: SET_CURRENT, artist: artist, song: song };
+  song = song.indexOf(' - ') > -1 ? song.slice(0, song.indexOf(' - ')) : song;
+  return {
+    type: SET_CURRENT,
+    artist: artist,
+    song: song
+  };
 };
+
 var setToken = function setToken(token) {
   return { type: SET_TOKEN, token: token };
 };
+
 var setCorpus = function setCorpus(corpus) {
   corpus = corpus.replace(/\n\n/g, '\n').replace(/\n/g, '.\n');
   return {
@@ -9183,6 +9190,8 @@ var grabLyrics = exports.grabLyrics = function grabLyrics() {
   return function (dispatch, getState) {
     return _axios2.default.get('/api/lyrics/' + encodeURIComponent(getState().currArtist) + '/' + encodeURIComponent(getState().currSong)).then(function (res) {
       dispatch(setCorpus(res.data.lyric));
+    }).catch(function (err) {
+      dispatch(setCorpus('Too hip for my blood -- your song isn\'t in my lyrics database. Try something a little more mainstream?'));
     });
   };
 };
@@ -28671,55 +28680,55 @@ var Corpus = function (_Component) {
   }
 
   _createClass(Corpus, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        { id: "corpusBlock" },
+        'div',
+        { id: 'corpusBlock' },
         _react2.default.createElement(
-          "h3",
+          'h3',
           null,
-          "You're listening to"
+          'You\'re listening to'
         ),
         _react2.default.createElement(
-          "h3",
+          'h3',
           null,
-          this.props.currSong && this.props.currSong,
-          " by ",
-          this.props.currArtist && this.props.currArtist
+          this.props.currSong ? this.props.currSong : 'TBD',
+          ' by ',
+          this.props.currArtist ? this.props.currArtist : 'TBD'
         ),
         _react2.default.createElement(
-          "div",
-          { className: "buttonContainer" },
+          'div',
+          { className: 'buttonContainer' },
           _react2.default.createElement(
-            "button",
+            'button',
             {
-              className: "btn btn-success",
+              className: 'btn btn-success',
               onClick: this.props.grabCurrentSong
             },
-            "Grab my current song"
+            'Grab my current song'
           )
         ),
-        _react2.default.createElement("textarea", {
-          name: "corpus",
+        _react2.default.createElement('textarea', {
+          name: 'corpus',
           value: this.props.corpus && this.props.corpus
         }),
         _react2.default.createElement(
-          "div",
-          { className: "buttonContainer" },
+          'div',
+          { className: 'buttonContainer' },
           _react2.default.createElement(
-            "button",
+            'button',
             {
-              className: "btn btn-success",
+              className: 'btn btn-success',
               onClick: this.generateGram
             },
-            "Generate sentimentagram"
+            'Generate sentimentagram'
           )
         )
       );
     }
   }, {
-    key: "generateGram",
+    key: 'generateGram',
     value: function generateGram(evt) {
       evt.preventDefault();
       var postBody = {
@@ -28919,16 +28928,28 @@ var Visualizer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'flexcontainer-vertical', id: 'visualizerBlock' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'text-center' },
           _react2.default.createElement(
             'h3',
-            { className: 'center text-center text-bottom' },
+            null,
             'sentimentagram'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Here, the sentiment of the lyrics of your song is plotted over progression through the text.'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Hover over a dot to see its sentiment score and a snippet of the line that generated it.'
           )
         ),
         _react2.default.createElement(
@@ -28939,31 +28960,43 @@ var Visualizer = function (_Component) {
             {
               domainPadding: 5,
               theme: _victory.VictoryTheme.material,
-              width: 500,
-              height: 300,
+              width: 400,
+              height: 200,
               padding: { top: 20, bottom: 50, left: 30, right: 30 },
               containerComponent: _react2.default.createElement(_victory.VictoryVoronoiContainer, null),
               domain: this.domain(),
               animate: { duration: 500 }
             },
             _react2.default.createElement(_victory.VictoryAxis, null),
-            _react2.default.createElement(_victory.VictoryAxis, { dependentAxis: true }),
+            _react2.default.createElement(_victory.VictoryAxis, {
+              dependentAxis: true,
+              tickFormat: function tickFormat(tick) {
+                var yAxis = _this2.domain().y;
+                if (yAxis.indexOf(tick) > -1) {
+                  return tick === -1 ? '-1 (neg)' : '1 (pos)';
+                } else {
+                  return tick;
+                }
+              }
+            }),
             _react2.default.createElement(_victory.VictoryScatter, {
-              data: this.props.data.sentences && this.props.data.sentences
-              // x="sentenceOffset"
-              // y="sentiment"
-              , size: function size(datum, active) {
+              data: this.props.data.sentences && this.props.data.sentences,
+              size: function size(datum, active) {
                 return active ? 5 : 3;
               }
             }),
             _react2.default.createElement(_victory.VictoryLine, {
-              data: this.props.data.sentences && this.props.data.sentences
-              // x="sentenceOffset"
-              // y="sentiment"
-              , labels: function labels(datum) {
+              data: this.props.data.sentences && this.props.data.sentences,
+              labels: function labels(datum) {
                 return '\'' + datum.sentenceStub + '\' \n ' + datum.y;
               },
-              labelComponent: _react2.default.createElement(_victory.VictoryTooltip, null),
+              labelComponent: _react2.default.createElement(_victory.VictoryTooltip
+              // flyoutComponent={
+              //   <Flyout
+              //     style={}
+              //   />
+              // }
+              , null),
               interpolation: 'basis'
             })
           )
@@ -28980,12 +29013,8 @@ var Visualizer = function (_Component) {
 /* ----- CONTAINER ----- */
 
 var mapStateToProps = function mapStateToProps(store, ownProps) {
-  return {
-    data: store.data
-  };
+  return { data: store.data };
 };
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch, getState) {};
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Visualizer);
 

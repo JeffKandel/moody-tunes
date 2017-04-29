@@ -12,7 +12,7 @@ class Corpus extends Component {
           You're listening to
         </h3>
         <h3>
-          {this.props.currSong && this.props.currSong} by {this.props.currArtist && this.props.currArtist}
+          {this.props.currSong ? this.props.currSong : 'TBD'} by {this.props.currArtist ? this.props.currArtist : 'TBD'}
         </h3>
         <div className="buttonContainer">
           <button

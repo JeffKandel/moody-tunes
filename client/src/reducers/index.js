@@ -13,8 +13,19 @@ const SET_CHART_DATA = 'SET_CHART_DATA'
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const setCurr = (artist, song) => ({ type: SET_CURRENT, artist, song })
+const setCurr = (artist, song) => {
+  song = song.indexOf(' - ') > -1 ?
+         song.slice(0, song.indexOf(' - ')) :
+         song
+  return {
+    type: SET_CURRENT,
+    artist,
+    song
+  }
+}
+
 const setToken = token => ({ type: SET_TOKEN, token })
+
 const setCorpus = corpus => {
   corpus = corpus.replace(/\n\n/g, '\n')
     .replace(/\n/g, '.\n')
@@ -91,6 +102,9 @@ export const grabLyrics = () => (dispatch, getState) => {
   return axios.get(`/api/lyrics/${encodeURIComponent(getState().currArtist)}/${encodeURIComponent(getState().currSong)}`)
     .then(res => {
       dispatch(setCorpus(res.data.lyric))
+    })
+    .catch(err => {
+      dispatch(setCorpus('Too hip for my blood -- your song isn\'t in my lyrics database. Try something a little more mainstream?'))
     })
 }
 
