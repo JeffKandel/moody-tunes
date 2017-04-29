@@ -14,26 +14,26 @@ class Corpus extends Component {
         <h3>
           {this.props.currSong && this.props.currSong} by {this.props.currArtist && this.props.currArtist}
         </h3>
-        <form>
-          <textarea
-            name="corpus"
-            value={this.props.corpus && this.props.corpus}
-          />
-          <div className="buttonContainer">
-            <button
-              className="btn btn-success"
-              onClick={this.generateGram}
-            >
-              Generate sentimentagram
+        <div className="buttonContainer">
+          <button
+            className="btn btn-success"
+            onClick={this.props.grabCurrentSong}
+          >
+            Grab my current song
+        </button>
+        </div>
+        <textarea
+          name="corpus"
+          value={this.props.corpus && this.props.corpus}
+        />
+        <div className="buttonContainer">
+          <button
+            className="btn btn-success"
+            onClick={this.generateGram}
+          >
+            Generate sentimentagram
             </button>
-            <button
-              className="btn btn-success"
-              onClick={this.props.grabCurrentSong}
-            >
-              Grab my current song
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     )
   }
