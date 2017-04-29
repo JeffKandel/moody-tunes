@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 // import querystring from 'querystring'
 
-import { googleKey, spotifyClientId, spotifyRedirectURI, geniusClientId, geniusClientSecret, geniusRedirectURI, geniusClientAccessToken } from '../../../secrets.js'
+import { googleKey, spotifyClientId, spotifyRedirectURI } from '../../../secrets.js'
 
 /* ----- IMPORT SUBCOMPONENTS ----- */
 import NavBar from './NavBar.js'

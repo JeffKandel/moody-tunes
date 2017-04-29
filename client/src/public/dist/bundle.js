@@ -28538,11 +28538,7 @@ module.exports = {
   spotifyClientId: '5731dd00e04943969cd5e1d6ce78f8ef',
   spotifyClientSecret: '56af518f0b244e0bb1df8e2e27fde838',
   spotifyRedirectURI: 'http://localhost:3000/',
-  googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU',
-  geniusClientId: 'whaFWDLeNL6PD4ucQ1tPVYEX7YWxItlOoi1_kKMKcqOg7uHlxLtcaOR61_mtLZ3g',
-  geniusClientSecret: 'bHHX_Kr6KaEQb3_NspcH7o7Jtwsh7oLV-6c-wu8i70F0TP_0ngue9JlMzl87gzgQfnxdtQ3sfjM07nlm0iWp7Q',
-  geniusRedirectURI: 'http://localhost:3000/',
-  geniusClientAccessToken: 'L4RHalR_QbY9HRb_yxCTAt1vTt26Qv4qda94PizUY8pld1j1NQutF01YzEF6ig5-'
+  googleKey: 'AIzaSyBIqWwJFKomePxgKH-CQSUaNMMHQ1RtHCU'
 };
 
 /***/ }),
