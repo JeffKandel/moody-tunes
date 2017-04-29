@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { VictoryChart, VictoryTheme, VictoryVoronoiContainer, VictoryAxis, VictoryScatter, VictoryLine, VictoryTooltip, Flyout } from 'victory'
+import { VictoryChart, VictoryTheme, VictoryVoronoiContainer, VictoryAxis, VictoryScatter, VictoryLine, VictoryTooltip } from 'victory'
 
 class Visualizer extends Component {
   constructor() {

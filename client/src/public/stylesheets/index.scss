@@ -57,11 +57,22 @@ html, body {
 	height: 100%;
 }
 
+#rootBox {
+	display: flex;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0
+}
+
 .flexcontainer-horizontal {
   display: -webkit-flex;
   display: flex;
 	-webkit-flex-direction: row;
   flex-direction: row;
+	justify-content: space-between;
+	align-items: center
 }
 
 .flexcontainer-vertical {
@@ -69,35 +80,27 @@ html, body {
   display: flex;
 	-webkit-flex-direction: column;
   flex-direction: column;
+	align-items: space-between
 }
 
 #appBlock {
 	height: 100%;
-	display: flex
+	width: 100%;
+	display: inline-flex;
 }
 
 nav {
-	padding: 5px;
-	display: block;
+	padding: 5px 5px 10px 5px;
 	background-color: $nav-footer-color;
 	color: white;
 	display: inline-flex;
-	flex-grow: 1
-}
-
-.left {
-	-webkit-align-self: flex-start;
-	align-self: flex-start;
+	h4 {
+		height: 100%
+	}
 }
 
 .center {
 	align-self: center
-}
-
-.right {
-	-webkit-align-self: flex-start;
-	align-self: flex-start;
-	margin-left: auto
 }
 
 #corpusBlock {
@@ -122,7 +125,7 @@ nav {
 
 #visualizerBlock {
 	background-color: $vis-block-color;
-	padding: 20px;
+	padding: 10px;
 	h3 {
 		margin: 0 0 10px 0
 	}
@@ -134,14 +137,11 @@ nav {
 	width: 100%;
 }
 
-.footer {
+#footerBlock {
 	background-color: $nav-footer-color;
 	color: $subnav-color;
 	padding: 5px;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	left: 0;
+	display: inline-flex;
 	flex-grow: 1;
 }
 

@@ -16,7 +16,7 @@ import store from './store.js'
 /* ----- RENDER TO DOM ----- */
 ReactDOM.render(
   (<Provider store={store}>
-    <div>
+    <div id="rootBox" className="flexcontainer-vertical">
       <NavBar />
       <App />
       <Footer />

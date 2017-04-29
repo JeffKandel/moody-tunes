@@ -14,17 +14,15 @@ class App extends Component {
   render() {
     console.log("this.props", this.props)
     return (
-      <div className="flexcontainer-vertical" id="appBlock">
-        <div id="bodyBlock" className="row">
-          <div className="col-md-4">
-            { this.props.isLoggedIntoSpotify ?
-              <Corpus access={this.props.access_token} /> :
-              <LoginSpotify />
-            }
-          </div>
-          <div className="col-md-8">
-            <Visualizer />
-          </div>
+      <div id="appBlock" className="flexcontainer-horizontal">
+        <div className="col-md-4">
+        {this.props.isLoggedIntoSpotify ?
+            <Corpus access={this.props.access_token} /> :
+            <LoginSpotify />
+          }
+        </div>
+        <div className="col-md-8">
+          <Visualizer />
         </div>
       </div>
     )
