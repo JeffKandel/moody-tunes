@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import * as V from 'victory'
+import { VictoryChart, VictoryTheme, VictoryVoronoiContainer, VictoryAxis, VictoryScatter, VictoryLine, VictoryTooltip } from 'victory'
 
-export default class Visualizer extends Component {
+class Visualizer extends Component {
   constructor() {
     super()
     this.docLength = this.docLength.bind(this)
@@ -31,35 +31,51 @@ export default class Visualizer extends Component {
           <h3 className="center text-center text-bottom">sentimentagram</h3>
         </div>
         <div>
-          <V.VictoryChart
+          <VictoryChart
             domainPadding={5}
-            theme={V.VictoryTheme.material}
+            theme={VictoryTheme.material}
             width={500}
             height={300}
             padding={{top: 20, bottom: 50, left: 30, right: 30}}
-            containerComponent={<V.VictoryVoronoiContainer />}
+            containerComponent={<VictoryVoronoiContainer />}
             domain={this.domain()}
             animate={{ duration: 500 }}
           >
-            <V.VictoryAxis />
-            <V.VictoryAxis dependentAxis />
-            <V.VictoryScatter
+            <VictoryAxis />
+            <VictoryAxis dependentAxis />
+            <VictoryScatter
               data={this.props.data.sentences && this.props.data.sentences}
               // x="sentenceOffset"
               // y="sentiment"
               size={(datum, active) => active ? 5 : 3}
             />
-            <V.VictoryLine
+            <VictoryLine
               data={this.props.data.sentences && this.props.data.sentences}
               // x="sentenceOffset"
               // y="sentiment"
               labels={datum => `'${datum.sentenceStub}' \n ${datum.y}`}
-              labelComponent={<V.VictoryTooltip />}
+              labelComponent={<VictoryTooltip />}
               interpolation="basis"
             />
-          </V.VictoryChart>
+          </VictoryChart>
         </div>
       </div>
     )
   }
 }
+
+/* ----- IMPORT CONTAINER DEPENDENCIES ----- */
+
+import { connect } from 'react-redux'
+
+/* ----- CONTAINER ----- */
+
+const mapStateToProps = (store, ownProps) => {
+  return {
+    data: store.data
+  }
+}
+
+const mapDispatchToProps = (dispatch, getState) => {}
+
+export default connect(mapStateToProps)(Visualizer)
