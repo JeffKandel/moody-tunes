@@ -17,7 +17,7 @@ export default class Corpus extends Component {
             name="corpus"
             value={this.props.corpus && this.props.corpus}
           />
-          <div>
+          <div className="buttonContainer">
             <button
               className="btn btn-success"
             >

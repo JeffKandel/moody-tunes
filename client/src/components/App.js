@@ -119,10 +119,10 @@ export default class App extends Component {
     })
   }
   parseCorpus(corpus) {
-    corpus.replace('\n\n', '\n')
-          .replace('\n', '. ')
+    corpus = corpus.replace(/\n\n/g, '\n')
+          .replace(/\n/g, '.\n')
     this.setState({
-      corpus
+      corpus: corpus
     })
   }
   handleSpotifyLogin(evt) {
