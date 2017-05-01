@@ -15,20 +15,15 @@ class App extends Component {
     console.log("this.props", this.props)
     return (
       <div id="appBlock" className="flexcontainer-horizontal">
+        <div className="col-md-4">
         {this.props.isLoggedIntoSpotify ?
-          (<div>
-            <div className="col-md-4">
-              <Corpus access={this.props.access_token} />
-            </div>
-            <div className="col-md-8">
-              <Visualizer />
-            </div>
-          </div>)
-          :
-          (<div className="col-md-12">
-          <LoginSpotify />
-          </div>)
-        }
+            <Corpus access={this.props.access_token} /> :
+            <LoginSpotify />
+          }
+        </div>
+        <div className="col-md-8">
+          <Visualizer />
+        </div>
       </div>
     )
   }

@@ -27546,23 +27546,15 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { id: 'appBlock', className: 'flexcontainer-horizontal' },
-        this.props.isLoggedIntoSpotify ? _react2.default.createElement(
+        _react2.default.createElement(
           'div',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: 'col-md-4' },
-            _react2.default.createElement(_Corpus2.default, { access: this.props.access_token })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col-md-8' },
-            _react2.default.createElement(_Visualizer2.default, null)
-          )
-        ) : _react2.default.createElement(
+          { className: 'col-md-4' },
+          this.props.isLoggedIntoSpotify ? _react2.default.createElement(_Corpus2.default, { access: this.props.access_token }) : _react2.default.createElement(_LoginSpotify2.default, null)
+        ),
+        _react2.default.createElement(
           'div',
-          { className: 'col-md-12' },
-          _react2.default.createElement(_LoginSpotify2.default, null)
+          { className: 'col-md-8' },
+          _react2.default.createElement(_Visualizer2.default, null)
         )
       );
     }
