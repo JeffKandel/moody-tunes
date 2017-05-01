@@ -30,7 +30,7 @@ Future versions of this hackathon project will:
 - Authenticate with OAuth, or another more secure protocol
 - Pull Spotify audio features (metrics like danceability, valence, mood) and visualize this data as separate cards
 - Add a third dimension to the sentimentagram to incorporate the magnitude of each data point
-- Allow users to track sentimentagrams over multiple songs, to visualize the sentiment arc of a playlist, for instance
+- Allow users to track sentimentagrams over multiple songs, to visualize the sentiment arc of a playlist, or a day's worth of tunes
 - Style more completely
 
 
