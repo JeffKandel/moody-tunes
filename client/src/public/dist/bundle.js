@@ -27560,20 +27560,7 @@ var App = function (_Component) {
             _react2.default.createElement(_Visualizer2.default, null)
           )
         ) : _react2.default.createElement(_LoginSpotify2.default, null)
-      )
-
-      //   <div id="appBlock" className="flexcontainer-horizontal">
-      //     <div className="col-md-4">
-      //     {this.props.isLoggedIntoSpotify ?
-      //         <Corpus access={this.props.access_token} /> :
-      //         <LoginSpotify />
-      //       }
-      //     </div>
-      //     <div className="col-md-8">
-      //       <Visualizer />
-      //     </div>
-      //   </div>
-      ;
+      );
     }
   }, {
     key: 'componentDidMount',

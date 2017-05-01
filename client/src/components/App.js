@@ -28,19 +28,6 @@ class App extends Component {
           <LoginSpotify />
       ) }
       </div>
-
-
-    //   <div id="appBlock" className="flexcontainer-horizontal">
-    //     <div className="col-md-4">
-    //     {this.props.isLoggedIntoSpotify ?
-    //         <Corpus access={this.props.access_token} /> :
-    //         <LoginSpotify />
-    //       }
-    //     </div>
-    //     <div className="col-md-8">
-    //       <Visualizer />
-    //     </div>
-    //   </div>
     )
   }
   componentDidMount() {
