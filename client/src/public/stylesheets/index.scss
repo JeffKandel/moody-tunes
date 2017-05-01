@@ -48,15 +48,17 @@ table {
 
 $nav-footer-color: #9E0000;
 $corpus-block-color: white;
-$vis-block-color: white;
+$vizblock-color: white;
 $active-link-color: #1b3a6b;
 $subnav-color: white;
 $loader-color: rgba(0,0,0,.1);
 $interior-margin: 40px 20px;
+$vizblock-margin: 30px 20px;
 $interior-text-color: darkslategray;
 
 html, body {
 	height: 100%;
+	font-family: 'Montserrat', sans-serif
 }
 
 #rootBox {
@@ -98,8 +100,8 @@ nav {
 	color: white;
 	display: inline-flex;
 	#title {
-		font-weight: 300;
-		margin: 5px 0 5px 20px
+		margin: 5px 0 5px 20px;
+		font-family: 'Fugaz One'
 	}
 }
 
@@ -132,8 +134,8 @@ nav {
 }
 
 #vizBlock {
-	background-color: $vis-block-color;
-	margin: $interior-margin;
+	background-color: $vizblock-color;
+	margin: $vizblock-margin;
 	padding: 20px;
 	#vizTitle {
 		h4 {
