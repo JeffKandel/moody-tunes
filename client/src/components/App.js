@@ -25,9 +25,7 @@ class App extends Component {
           </div>
         </div>
       ) : (
-        <div id="loginBlock" className="flexcontainer-vertical">
           <LoginSpotify />
-        </div>
       ) }
       </div>
 

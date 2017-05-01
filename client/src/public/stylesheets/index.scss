@@ -126,8 +126,11 @@ nav {
 }
 
 #loginBlock {
-	margin: $interior-margin;
-	height: 600px;
+	margin: 100px 20px 40px 20px;
+	height: 550px; //TODO: fix this
+	#start {
+		font-family: 'Fugaz One'
+	}
 	h3 {
 		margin: 0 0 30px 0;
 		text-align: center
