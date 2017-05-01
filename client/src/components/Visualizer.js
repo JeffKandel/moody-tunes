@@ -78,8 +78,8 @@ class Visualizer extends Component {
               dependentAxis
               label="Sentiment"
               tickFormat={tick => {
-                const yAxis = this.domain().y
-                if (yAxis.indexOf(tick) > -1) {
+                const domainStartAndEnd = this.domain().y
+                if (domainStartAndEnd.indexOf(tick) > -1) {
                   return tick === -1 ? '-1 (neg)' : '1 (pos)'
                 } else {
                   return tick

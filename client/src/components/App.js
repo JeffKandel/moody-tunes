@@ -57,7 +57,7 @@ class App extends Component {
 /* ----- IMPORT CONTAINER DEPENDENCIES ----- */
 
 import { connect } from 'react-redux'
-import { storeToken, grabCurrSong } from '../reducers'
+import { storeToken } from '../reducers'
 
 /* ----- CONTAINER ----- */
 

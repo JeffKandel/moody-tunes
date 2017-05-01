@@ -29005,8 +29005,8 @@ var Visualizer = function (_Component) {
               dependentAxis: true,
               label: 'Sentiment',
               tickFormat: function tickFormat(tick) {
-                var yAxis = _this2.domain().y;
-                if (yAxis.indexOf(tick) > -1) {
+                var domainStartAndEnd = _this2.domain().y;
+                if (domainStartAndEnd.indexOf(tick) > -1) {
                   return tick === -1 ? '-1 (neg)' : '1 (pos)';
                 } else {
                   return tick;
