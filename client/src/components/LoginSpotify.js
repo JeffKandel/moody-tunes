@@ -12,7 +12,7 @@ export default class LoginSpotify extends Component {
     return (
       <div id="loginBlock" className="flexcontainer-vertical">
         <h3>start</h3>
-        <div className="button-container flexcontainer-vertical" id="startButton">
+        <div className="login-button-container flexcontainer-vertical">
           <button
             id="login-button"
             className="btn btn-success"

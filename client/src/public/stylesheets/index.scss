@@ -131,6 +131,13 @@ nav {
 		margin: 0 0 30px 0;
 		text-align: center
 	}
+	.login-button-container {
+		width: 500px;
+		align-self: center;
+		#login-button {
+			align-self: center
+		}
+	}
 }
 
 #vizBlock {
