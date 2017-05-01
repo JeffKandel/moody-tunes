@@ -7,6 +7,7 @@ class Visualizer extends Component {
     this.docLength = this.docLength.bind(this)
     this.domainX = this.domainX.bind(this)
     this.domain = this.domain.bind(this)
+    this.generateGram = this.generateGram.bind(this)
   }
   docLength(arr) {
     let max = 0
@@ -24,14 +25,33 @@ class Visualizer extends Component {
       y: [-1, 1]
     }
   }
+  generateGram(evt) {
+    evt.preventDefault()
+    const postBody = {
+      "document": {
+        "content": this.props.corpus,
+        "language": "EN",
+        "type": "PLAIN_TEXT"
+      },
+      "encodingType": "UTF8"
+    }
+    return this.props.queryCorpus(postBody)
+  }
   render() {
     return (
       <div className="flexcontainer-vertical z-depth-2" id="vizBlock">
         <div className="text-center" id="vizTitle">
-          <h6>this is { this.props.currSong }'s</h6>
+          <h6>this is {this.props.currSong}'s</h6>
           <h4>sentimentagram</h4>
-          <h6>This visualizer shows the progression of lyrical sentiment in your song over time.</h6>
-          <h6 style={{"margin-top": 5}}>Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.</h6>
+          <div className="buttonContainer">
+            <button
+              className="btn btn-success"
+              onClick={this.generateGram}
+            >
+              Generate
+            </button>
+          </div>
+          <h6>This visualizer shows the progression of lyrical sentiment in your song over time.<br></br>Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.</h6>
         </div>
         <div id="vizChart">
           <VictoryChart
@@ -40,7 +60,7 @@ class Visualizer extends Component {
             width={400}
             height={200}
             margin={{ top: 0, bottom: 0, left: 80, right: 40 }}
-            padding={{ top: 20, bottom: 20, left: 30, right: 30}}
+            padding={{ top: 20, bottom: 20, left: 30, right: 30 }}
             containerComponent={<VictoryVoronoiContainer />}
             domain={this.domain()}
             animate={{ duration: 500 }}
@@ -105,12 +125,20 @@ class Visualizer extends Component {
 /* ----- IMPORT CONTAINER DEPENDENCIES ----- */
 
 import { connect } from 'react-redux'
+import { passCorpusToChart } from '../reducers'
 
 /* ----- CONTAINER ----- */
 
 const mapStateToProps = (store, ownProps) => ({
   currSong: store.currSong,
-  data: store.data
+  data: store.data,
+  corpus: store.corpus
 })
 
-export default connect(mapStateToProps)(Visualizer)
+const mapDispatchToProps = (dispatch, getState) => ({
+  queryCorpus: (body) => {
+    dispatch(passCorpusToChart(body))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Visualizer)

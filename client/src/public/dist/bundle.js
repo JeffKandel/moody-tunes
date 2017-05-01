@@ -27720,9 +27720,9 @@ var NavBar = function (_Component) {
         "nav",
         { className: "flexcontainer-horizontal" },
         _react2.default.createElement(
-          "h6",
-          null,
-          "TUNE / MOOD"
+          "h5",
+          { id: "title" },
+          "MOODY TUNES"
         ),
         _react2.default.createElement(
           "h6",
@@ -28683,10 +28683,7 @@ var Corpus = function (_Component) {
   function Corpus() {
     _classCallCheck(this, Corpus);
 
-    var _this = _possibleConstructorReturn(this, (Corpus.__proto__ || Object.getPrototypeOf(Corpus)).call(this));
-
-    _this.generateGram = _this.generateGram.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (Corpus.__proto__ || Object.getPrototypeOf(Corpus)).apply(this, arguments));
   }
 
   _createClass(Corpus, [{
@@ -28722,34 +28719,8 @@ var Corpus = function (_Component) {
         _react2.default.createElement('textarea', {
           name: 'corpus',
           value: this.props.corpus && this.props.corpus
-        }),
-        _react2.default.createElement(
-          'div',
-          { className: 'buttonContainer' },
-          _react2.default.createElement(
-            'button',
-            {
-              className: 'btn btn-success',
-              onClick: this.generateGram
-            },
-            'Generate sentimentagram'
-          )
-        )
+        })
       );
-    }
-  }, {
-    key: 'generateGram',
-    value: function generateGram(evt) {
-      evt.preventDefault();
-      var postBody = {
-        "document": {
-          "content": this.props.corpus,
-          "language": "EN",
-          "type": "PLAIN_TEXT"
-        },
-        "encodingType": "UTF8"
-      };
-      return this.props.queryCorpus(postBody);
     }
   }]);
 
@@ -28773,9 +28744,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     grabCurrentSong: function grabCurrentSong(evt) {
       evt.preventDefault();
       dispatch((0, _reducers.grabCurrSong)(ownProps.access));
-    },
-    queryCorpus: function queryCorpus(body) {
-      dispatch((0, _reducers.passCorpusToChart)(body));
     }
   };
 };
@@ -28900,6 +28868,8 @@ var _victory = __webpack_require__(849);
 
 var _reactRedux = __webpack_require__(82);
 
+var _reducers = __webpack_require__(126);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28919,6 +28889,7 @@ var Visualizer = function (_Component) {
     _this.docLength = _this.docLength.bind(_this);
     _this.domainX = _this.domainX.bind(_this);
     _this.domain = _this.domain.bind(_this);
+    _this.generateGram = _this.generateGram.bind(_this);
     return _this;
   }
 
@@ -28945,6 +28916,20 @@ var Visualizer = function (_Component) {
       };
     }
   }, {
+    key: 'generateGram',
+    value: function generateGram(evt) {
+      evt.preventDefault();
+      var postBody = {
+        "document": {
+          "content": this.props.corpus,
+          "language": "EN",
+          "type": "PLAIN_TEXT"
+        },
+        "encodingType": "UTF8"
+      };
+      return this.props.queryCorpus(postBody);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -28968,13 +28953,22 @@ var Visualizer = function (_Component) {
             'sentimentagram'
           ),
           _react2.default.createElement(
-            'h6',
-            null,
-            'This visualizer shows the progression of lyrical sentiment in your song over time.'
+            'div',
+            { className: 'buttonContainer' },
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-success',
+                onClick: this.generateGram
+              },
+              'Generate'
+            )
           ),
           _react2.default.createElement(
             'h6',
-            { style: { "margin-top": 5 } },
+            null,
+            'This visualizer shows the progression of lyrical sentiment in your song over time.',
+            _react2.default.createElement('br', null),
             'Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.'
           )
         ),
@@ -29062,11 +29056,20 @@ var Visualizer = function (_Component) {
 var mapStateToProps = function mapStateToProps(store, ownProps) {
   return {
     currSong: store.currSong,
-    data: store.data
+    data: store.data,
+    corpus: store.corpus
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(Visualizer);
+var mapDispatchToProps = function mapDispatchToProps(dispatch, getState) {
+  return {
+    queryCorpus: function queryCorpus(body) {
+      dispatch((0, _reducers.passCorpusToChart)(body));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Visualizer);
 
 /***/ }),
 /* 390 */
@@ -29256,7 +29259,7 @@ exports = module.exports = __webpack_require__(393)(undefined);
 
 
 // module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n#rootBox {\n  display: flex;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: stretch; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  align-items: space-between; }\n\n#appBlock {\n  height: 100%;\n  width: 100%;\n  display: inline-flex;\n  color: darkslategray; }\n\nnav {\n  padding: 10px 5px 5px 5px;\n  background-color: #9E0000;\n  color: white;\n  display: inline-flex; }\n\n#corpusBlock {\n  background-color: white;\n  margin: 40px 20px; }\n  #corpusBlock h4, #corpusBlock h6 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 15px; }\n\n#loginBlock {\n  margin: 40px 20px; }\n  #loginBlock h3 {\n    margin: 0 0 30px 0;\n    text-align: center; }\n\n#vizBlock {\n  background-color: white;\n  margin: 40px 20px;\n  padding: 20px; }\n  #vizBlock #vizTitle h4 {\n    margin: 0 0 30px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n#footerBlock {\n  background-color: #9E0000;\n  color: white;\n  padding: 5px;\n  display: inline-flex;\n  flex-grow: 1; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  vertical-align: baseline; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 0.66em; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* ----- PROJECT STYLING ----- */\nhtml, body {\n  height: 100%; }\n\n#rootBox {\n  display: flex;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.flexcontainer-horizontal {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: row;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: stretch; }\n\n.flexcontainer-vertical {\n  display: -webkit-flex;\n  display: flex;\n  -webkit-flex-direction: column;\n  flex-direction: column;\n  align-items: space-between; }\n\n#appBlock {\n  height: 100%;\n  width: 100%;\n  display: inline-flex;\n  color: darkslategray; }\n\nnav {\n  padding: 10px 5px 5px 5px;\n  background-color: #9E0000;\n  color: white;\n  display: inline-flex; }\n  nav #title {\n    font-weight: 300;\n    margin: 5px 0 5px 20px; }\n\n#corpusBlock {\n  background-color: white;\n  margin: 40px 20px; }\n  #corpusBlock h4, #corpusBlock h6 {\n    margin: 0 0 10px 0; }\n  #corpusBlock textarea {\n    min-width: 100%;\n    height: 400px;\n    border: 0px solid;\n    margin-top: 20px; }\n  #corpusBlock .buttonContainer {\n    width: 100%; }\n    #corpusBlock .buttonContainer button {\n      margin-top: 15px; }\n\n#loginBlock {\n  margin: 40px 20px; }\n  #loginBlock h3 {\n    margin: 0 0 30px 0;\n    text-align: center; }\n\n#vizBlock {\n  background-color: white;\n  margin: 40px 20px;\n  padding: 20px; }\n  #vizBlock #vizTitle h4 {\n    margin: 0 0 15px 0; }\n  #vizBlock .buttonContainer {\n    width: 100%;\n    margin: 0 0 15px 0; }\n\n.loader {\n  background-color: rgba(0, 0, 0, 0.1);\n  height: 100%;\n  width: 100%; }\n\n#footerBlock {\n  background-color: #9E0000;\n  color: white;\n  padding: 5px;\n  display: inline-flex;\n  flex-grow: 1; }\n\na {\n  color: white; }\n  a :link {\n    color: white; }\n  a :visited {\n    color: white; }\n  a :hover {\n    color: #1b3a6b; }\n  a :active {\n    color: white; }\n", ""]);
 
 // exports
 

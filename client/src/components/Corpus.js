@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 
 class Corpus extends Component {
-  constructor() {
-    super()
-    this.generateGram = this.generateGram.bind(this)
-  }
   render() {
     return (
       <div id="corpusBlock">
@@ -26,35 +22,15 @@ class Corpus extends Component {
           name="corpus"
           value={this.props.corpus && this.props.corpus}
         />
-        <div className="buttonContainer">
-          <button
-            className="btn btn-success"
-            onClick={this.generateGram}
-          >
-            Generate sentimentagram
-            </button>
-        </div>
       </div>
     )
-  }
-  generateGram(evt) {
-    evt.preventDefault()
-    const postBody = {
-      "document": {
-        "content": this.props.corpus,
-        "language": "EN",
-        "type": "PLAIN_TEXT"
-      },
-      "encodingType": "UTF8"
-    }
-    return this.props.queryCorpus(postBody)
   }
 }
 
 /* ----- IMPORT CONTAINER DEPENDENCIES ----- */
 
 import { connect } from 'react-redux'
-import { grabCurrSong, passCorpusToChart } from '../reducers'
+import { grabCurrSong } from '../reducers'
 
 /* ----- CONTAINER ----- */
 
@@ -70,9 +46,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   grabCurrentSong: (evt) => {
     evt.preventDefault()
     dispatch(grabCurrSong(ownProps.access))
-  },
-  queryCorpus: (body) => {
-    dispatch(passCorpusToChart(body))
   }
 })
 

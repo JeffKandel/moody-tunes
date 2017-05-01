@@ -97,6 +97,10 @@ nav {
 	background-color: $nav-footer-color;
 	color: white;
 	display: inline-flex;
+	#title {
+		font-weight: 300;
+		margin: 5px 0 5px 20px
+	}
 }
 
 #corpusBlock {
@@ -133,8 +137,12 @@ nav {
 	padding: 20px;
 	#vizTitle {
 		h4 {
-			margin: 0 0 30px 0
+			margin: 0 0 15px 0
 		}
+	}
+	.buttonContainer {
+		width: 100%;
+		margin: 0 0 15px 0;
 	}
 }
 
