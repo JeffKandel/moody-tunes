@@ -10,7 +10,7 @@ export default class LoginSpotify extends Component {
   }
   render() {
     return (
-      <div id="loginBlock" className="flexcontainer-vertical">
+      <div className="flexcontainer-vertical">
         <h3>start</h3>
         <div className="login-button-container flexcontainer-vertical">
           <button

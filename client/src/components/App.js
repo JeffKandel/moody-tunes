@@ -14,17 +14,35 @@ class App extends Component {
   render() {
     console.log("this.props", this.props)
     return (
-      <div id="appBlock" className="flexcontainer-horizontal">
-        <div className="col-md-4">
-        {this.props.isLoggedIntoSpotify ?
-            <Corpus access={this.props.access_token} /> :
-            <LoginSpotify />
-          }
+      <div>
+      { this.props.isLoggedIntoSpotify ? (
+        <div id="appBlock" className="flexcontainer-horizontal">
+          <div className="col-md-4">
+            <Corpus access={this.props.access_token} />
+          </div>
+          <div className="col-md-8">
+            <Visualizer />
+          </div>
         </div>
-        <div className="col-md-8">
-          <Visualizer />
+      ) : (
+        <div id="loginBlock" className="flexcontainer-vertical">
+          <LoginSpotify />
         </div>
+      ) }
       </div>
+
+
+    //   <div id="appBlock" className="flexcontainer-horizontal">
+    //     <div className="col-md-4">
+    //     {this.props.isLoggedIntoSpotify ?
+    //         <Corpus access={this.props.access_token} /> :
+    //         <LoginSpotify />
+    //       }
+    //     </div>
+    //     <div className="col-md-8">
+    //       <Visualizer />
+    //     </div>
+    //   </div>
     )
   }
   componentDidMount() {
