@@ -1,5 +1,5 @@
 {
-  "name": "moody tunes",
+  "name": "moody-tunes",
   "version": "1.0.0",
   "description": "A web app for charting the mood of your tunes",
   "main": "index.js",
@@ -13,7 +13,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.1",
     "bootstrap": "^3.3.7",
-    "d3": "^4.8.0",
     "express": "^4.15.2",
     "lyric-get": "^1.0.3",
     "nodemon": "^1.11.0",
