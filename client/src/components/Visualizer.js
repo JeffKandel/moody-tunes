@@ -28,9 +28,9 @@ class Visualizer extends Component {
     return (
       <div className="flexcontainer-vertical z-depth-2" id="vizBlock">
         <div className="text-center" id="vizTitle">
-          <h6>this is {  }</h6>
+          <h6>this is { this.props.currSong }'s</h6>
           <h4>sentimentagram</h4>
-          <h6>Here, the sentiment of each line in your song is plotted over time.</h6>
+          <h6>This visualizer shows the progression of lyrical sentiment in your song over time.</h6>
           <h6 style={{"margin-top": 5}}>Hover over a dot to see the line that generated it, and what Google thinks of its sentiment.</h6>
         </div>
         <div id="vizChart">

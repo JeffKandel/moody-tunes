@@ -104,7 +104,7 @@ export const grabLyrics = () => (dispatch, getState) => {
       dispatch(setCorpus(res.data.lyric))
     })
     .catch(err => {
-      dispatch(setCorpus('Too hip for my blood -- your song isn\'t in my lyrics database. Try something a little more mainstream?'))
+      dispatch(setCorpus('Oh no! You\'re too hip -- your song isn\'t in my lyrics database. Try something a little more mainstream?'))
     })
 }
 
