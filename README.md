@@ -2,6 +2,8 @@
 
 Moody Tunes is an interactive data visualizer that plots the sentiment of your current Spotify track over time.
 
+It was built over a weekend hackathon at Fullstack Academy, and is currently under refactor.
+
 ## Installation
 
 Once the repo is cloned, run `npm install` to install the app and its dependencies.
